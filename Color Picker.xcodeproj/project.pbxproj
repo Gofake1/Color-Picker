@@ -11,6 +11,7 @@
 		4A66F1891EBC24E200D81A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F1881EBC24E200D81A4A /* ViewController.swift */; };
 		4A66F18B1EBC24E200D81A4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A66F18A1EBC24E200D81A4A /* Assets.xcassets */; };
 		4A66F18E1EBC24E200D81A4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A66F18C1EBC24E200D81A4A /* Main.storyboard */; };
+		4A66F1971EBC274100D81A4A /* ColorWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F1961EBC274100D81A4A /* ColorWheelView.swift */; };
 		4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */; };
 		4A66F19D1EBC777200D81A4A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F19C1EBC777200D81A4A /* Color.swift */; };
 		4A720F7C1EBD7E0000205678 /* NSColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A720F7B1EBD7E0000205678 /* NSColor+.swift */; };
@@ -24,6 +25,7 @@
 		4A66F18D1EBC24E200D81A4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4A66F18F1EBC24E200D81A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A66F1951EBC250C00D81A4A /* Color Picker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Color Picker.entitlements"; sourceTree = "<group>"; };
+		4A66F1961EBC274100D81A4A /* ColorWheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWheelView.swift; sourceTree = "<group>"; };
 		4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSliderCell.swift; sourceTree = "<group>"; };
 		4A66F19C1EBC777200D81A4A /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4A720F7B1EBD7E0000205678 /* NSColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+.swift"; sourceTree = "<group>"; };
@@ -59,13 +61,14 @@
 		4A66F1851EBC24E200D81A4A /* Color Picker */ = {
 			isa = PBXGroup;
 			children = (
+				4A66F18C1EBC24E200D81A4A /* Main.storyboard */,
 				4A66F1861EBC24E200D81A4A /* AppDelegate.swift */,
 				4A66F19C1EBC777200D81A4A /* Color.swift */,
+				4A66F1961EBC274100D81A4A /* ColorWheelView.swift */,
 				4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */,
 				4A720F7B1EBD7E0000205678 /* NSColor+.swift */,
 				4A66F1881EBC24E200D81A4A /* ViewController.swift */,
 				4A66F18A1EBC24E200D81A4A /* Assets.xcassets */,
-				4A66F18C1EBC24E200D81A4A /* Main.storyboard */,
 				4A66F18F1EBC24E200D81A4A /* Info.plist */,
 				4A66F1951EBC250C00D81A4A /* Color Picker.entitlements */,
 			);
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */,
+				4A66F1971EBC274100D81A4A /* ColorWheelView.swift in Sources */,
 				4A66F1891EBC24E200D81A4A /* ViewController.swift in Sources */,
 				4A66F19D1EBC777200D81A4A /* Color.swift in Sources */,
 				4A720F7C1EBD7E0000205678 /* NSColor+.swift in Sources */,
