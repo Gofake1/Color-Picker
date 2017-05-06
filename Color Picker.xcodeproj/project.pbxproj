@@ -11,6 +11,7 @@
 		4A66F1891EBC24E200D81A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F1881EBC24E200D81A4A /* ViewController.swift */; };
 		4A66F18B1EBC24E200D81A4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A66F18A1EBC24E200D81A4A /* Assets.xcassets */; };
 		4A66F18E1EBC24E200D81A4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A66F18C1EBC24E200D81A4A /* Main.storyboard */; };
+		4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		4A66F18D1EBC24E200D81A4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4A66F18F1EBC24E200D81A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A66F1951EBC250C00D81A4A /* Color Picker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Color Picker.entitlements"; sourceTree = "<group>"; };
+		4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSliderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				4A66F1861EBC24E200D81A4A /* AppDelegate.swift */,
+				4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */,
 				4A66F1881EBC24E200D81A4A /* ViewController.swift */,
 				4A66F18A1EBC24E200D81A4A /* Assets.xcassets */,
 				4A66F18C1EBC24E200D81A4A /* Main.storyboard */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */,
 				4A66F1891EBC24E200D81A4A /* ViewController.swift in Sources */,
 				4A66F1871EBC24E200D81A4A /* AppDelegate.swift in Sources */,
 			);
