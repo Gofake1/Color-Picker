@@ -20,6 +20,7 @@
 		4A66F18A1EBC24E200D81A4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A66F18D1EBC24E200D81A4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4A66F18F1EBC24E200D81A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A66F1951EBC250C00D81A4A /* Color Picker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Color Picker.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 				4A66F18A1EBC24E200D81A4A /* Assets.xcassets */,
 				4A66F18C1EBC24E200D81A4A /* Main.storyboard */,
 				4A66F18F1EBC24E200D81A4A /* Info.plist */,
+				4A66F1951EBC250C00D81A4A /* Color Picker.entitlements */,
 			);
 			path = "Color Picker";
 			sourceTree = "<group>";
@@ -93,7 +95,13 @@
 				TargetAttributes = {
 					4A66F1821EBC24E200D81A4A = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = W6KLMFETUQ;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -247,11 +255,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Color Picker/Color Picker.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = W6KLMFETUQ;
 				INFOPLIST_FILE = "Color Picker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.gofake1.Color-Picker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -260,11 +272,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Color Picker/Color Picker.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = W6KLMFETUQ;
 				INFOPLIST_FILE = "Color Picker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.gofake1.Color-Picker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -288,6 +304,7 @@
 				4A66F1941EBC24E200D81A4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
