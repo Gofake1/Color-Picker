@@ -9,10 +9,17 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject {
+
+    fileprivate lazy var colorPicker: NSWindowController? = {
+        return NSStoryboard(name: "ColorPicker", bundle: nil).instantiateInitialController()
+            as? NSWindowController
+    }()
+
+extension AppDelegate: NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        colorPicker?.showWindow(nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

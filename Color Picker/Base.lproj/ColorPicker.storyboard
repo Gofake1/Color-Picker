@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F71b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="JxZ-c9-YQb">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="e0T-Tj-aWw">
+            <objects>
+                <windowController id="JxZ-c9-YQb" sceneMemberID="viewController">
+                    <window key="window" title="Color Picker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Wfg-T3-T6Z">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="294" y="411" width="188" height="231"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+                    </window>
+                    <connections>
+                        <segue destination="3Pz-yC-UHG" kind="relationship" relationship="window.shadowedContentViewController" id="weC-50-A1E"/>
+                    </connections>
+                </windowController>
+                <customObject id="2lX-Gd-KgW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-92" y="5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="QlW-FC-hjR">
+            <objects>
+                <viewController id="3Pz-yC-UHG" customClass="ViewController" customModule="Color_Picker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="xHY-HW-lur">
+                        <rect key="frame" x="0.0" y="0.0" width="188" height="243"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nI-Ui-Tr3">
+                                <rect key="frame" x="0.0" y="0.0" width="188" height="243"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="RoW-gq-wFb" customClass="ColorWheelView" customModule="Color_Picker" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="63" width="172" height="172"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="172" id="7Ob-0W-ILS"/>
+                                            <constraint firstAttribute="width" constant="172" id="f8G-f8-REe"/>
+                                        </constraints>
+                                    </customView>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kEI-3s-8V1">
+                                        <rect key="frame" x="6" y="31" width="176" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="172" id="tDX-ls-9eF"/>
+                                        </constraints>
+                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" numberOfTickMarks="1" sliderType="linear" id="EKk-Po-jxX" customClass="GradientSliderCell" customModule="Color_Picker" customModuleProvider="target"/>
+                                        <connections>
+                                            <action selector="setBrightness:" target="3Pz-yC-UHG" id="vat-0S-3Ne"/>
+                                        </connections>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-XT-mBw">
+                                        <rect key="frame" x="8" y="8" width="172" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="#FFFFFF" drawsBackground="YES" usesSingleLineMode="YES" id="ee9-XM-FFS">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="3Pz-yC-UHG" id="C1F-Ht-MgT"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <edgeInsets key="edgeInsets" left="8" right="8" top="8" bottom="8"/>
+                                <constraints>
+                                    <constraint firstItem="dR5-XT-mBw" firstAttribute="centerX" secondItem="4nI-Ui-Tr3" secondAttribute="centerX" id="Ywd-kn-tog"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="4nI-Ui-Tr3" secondAttribute="trailing" id="RKh-4x-uIR"/>
+                            <constraint firstAttribute="bottom" secondItem="4nI-Ui-Tr3" secondAttribute="bottom" id="cgj-h8-nGM"/>
+                            <constraint firstItem="4nI-Ui-Tr3" firstAttribute="leading" secondItem="xHY-HW-lur" secondAttribute="leading" id="tUF-q3-l4h"/>
+                            <constraint firstItem="4nI-Ui-Tr3" firstAttribute="top" secondItem="xHY-HW-lur" secondAttribute="top" id="y9N-3v-WfE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="brightnessSlider" destination="kEI-3s-8V1" id="sIm-Vq-9Xz"/>
+                        <outlet property="colorLabel" destination="dR5-XT-mBw" id="2YO-as-1NR"/>
+                        <outlet property="colorWheelView" destination="RoW-gq-wFb" id="0WL-3s-3Mf"/>
+                    </connections>
+                </viewController>
+                <customObject id="rRV-8g-2ce" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-92" y="391"/>
+        </scene>
+    </scenes>
+</document>
