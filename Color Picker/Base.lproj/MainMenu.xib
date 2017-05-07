@@ -144,8 +144,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
-                            <menuItem title="Color Picker" keyEquivalent="9" id="KJh-LD-foB"/>
-                            <menuItem title="Palettes" keyEquivalent="0" id="GAM-YF-GBZ"/>
+                            <menuItem title="Color Picker" keyEquivalent="9" id="KJh-LD-foB">
+                                <connections>
+                                    <action selector="showColorPicker:" target="V4f-8T-Vb0" id="sis-tR-kCX"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="Kp5-c2-mOr"/>
                             <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>

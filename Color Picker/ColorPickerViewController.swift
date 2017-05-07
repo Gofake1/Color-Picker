@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ColorPickerViewController.swift
 //  Color Picker
 //
 //  Created by David Wu on 5/4/17.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ColorPickerViewController: NSViewController {
 
     @IBOutlet weak var brightnessSlider: NSSlider!
     @IBOutlet weak var colorLabel: NSTextField!
@@ -65,7 +65,7 @@ class ViewController: NSViewController {
     }
 }
 
-extension ViewController: ColorWheelViewDelegate {
+extension ColorPickerViewController: ColorWheelViewDelegate {
     func colorDidChange(_ newColor: CGColor) {
         guard let color = NSColor(cgColor: newColor) else { fatalError() }
         updateLabel(color)
@@ -73,7 +73,7 @@ extension ViewController: ColorWheelViewDelegate {
     }
 }
 
-extension ViewController: NSControlTextEditingDelegate {
+extension ColorPickerViewController: NSControlTextEditingDelegate {
 
     private func validateControlString(_ string: String) -> Bool {
         // String must be 6 characters and only contain numbers and letters 'a' through 'f',

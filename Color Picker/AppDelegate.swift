@@ -12,9 +12,16 @@ import Cocoa
 class AppDelegate: NSObject {
 
     fileprivate lazy var colorPicker: NSWindowController? = {
-        return NSStoryboard(name: "ColorPicker", bundle: nil).instantiateInitialController()
+        let colorPicker = NSStoryboard(name: "ColorPicker", bundle: nil).instantiateInitialController()
             as? NSWindowController
+        colorPicker?.window?.isExcludedFromWindowsMenu = true
+        return colorPicker
     }()
+
+    @IBAction func showColorPicker(_ sender: NSMenuItem) {
+        colorPicker?.showWindow(nil)
+    }
+}
 
 extension AppDelegate: NSApplicationDelegate {
 

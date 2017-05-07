@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-92" y="5"/>
         </scene>
-        <!--View Controller-->
+        <!--Color Picker View Controller-->
         <scene sceneID="QlW-FC-hjR">
             <objects>
-                <viewController id="3Pz-yC-UHG" customClass="ViewController" customModule="Color_Picker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3Pz-yC-UHG" customClass="ColorPickerViewController" customModule="Color_Picker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="xHY-HW-lur">
                         <rect key="frame" x="0.0" y="0.0" width="188" height="243"/>
                         <autoresizingMask key="autoresizingMask"/>
