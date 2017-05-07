@@ -60,11 +60,11 @@ struct RGB {
         self.b = UInt8(b*255)
     }
 
-    init(coord: (x: Int, y: Int), origin: (x: Int, y: Int), brightness: CGFloat) {
-        let angle      = atan2(CGFloat(origin.x - coord.x), CGFloat(origin.y - coord.y)) + CGFloat.pi
-        let distance   = sqrt(pow(CGFloat(origin.x - coord.x), 2) + pow(CGFloat(origin.y - coord.y), 2))
+    init(coord: (x: Int, y: Int), center: (x: Int, y: Int), brightness: CGFloat) {
+        let angle      = atan2(CGFloat(center.x - coord.x), CGFloat(center.y - coord.y)) + CGFloat.pi
+        let distance   = sqrt(pow(CGFloat(center.x - coord.x), 2) + pow(CGFloat(center.y - coord.y), 2))
         let hue        = max(min(angle / (CGFloat.pi * 2), 1), 0)
-        let saturation = max(min(distance / CGFloat(origin.x), 1), 0)
+        let saturation = max(min(distance / CGFloat(center.x), 1), 0)
         self.init(h: hue, s: saturation, v: brightness)
     }
 }

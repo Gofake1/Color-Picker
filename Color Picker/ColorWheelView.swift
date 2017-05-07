@@ -49,6 +49,11 @@ class ColorWheelView: NSView {
         context.clip()
         context.draw(colorWheelImage, in: dirtyRect)
 
+        if brightness < 0.5 {
+            context.setStrokeColor(CGColor.white)
+        } else {
+            context.setStrokeColor(CGColor.black)
+        }
         context.addEllipse(in: CGRect(origin: CGPoint(x: crosshairLocation.x-5.5, y: crosshairLocation.y-5.5),
                                       size: CGSize(width: 11, height: 11)))
         context.addLines(between: [CGPoint(x: crosshairLocation.x, y: crosshairLocation.y-8),
@@ -70,7 +75,7 @@ class ColorWheelView: NSView {
         var imageBytes = [RGB]()
         for j in stride(from: height, to: 0, by: -1) {
             for i in 0..<width {
-                imageBytes.append(RGB(coord: (i, j), origin: (width/2, height/2), brightness: brightness))
+                imageBytes.append(RGB(coord: (i, j), center: (width/2, height/2), brightness: brightness))
             }
         }
         return CGImage(width: width,
@@ -100,7 +105,7 @@ class ColorWheelView: NSView {
 
     private func setColor(at point: CGPoint) {
         selectedColor = RGB(coord: (Int(point.x), Int(point.y)),
-                            origin: (Int(frame.width/2), Int(frame.height/2)),
+                            center: (Int(frame.width/2), Int(frame.height/2)),
                             brightness: brightness).cgColor
         crosshairLocation = point
         delegate?.colorDidChange(selectedColor)
