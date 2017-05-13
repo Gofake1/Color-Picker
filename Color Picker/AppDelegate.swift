@@ -11,6 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject {
 
+    @IBOutlet weak var mainMenuController: MainMenuController!
     var paletteCollection: PaletteCollection!
 
     fileprivate lazy var colorPicker: NSWindowController? = {
@@ -20,9 +21,6 @@ class AppDelegate: NSObject {
         return colorPicker
     }()
 
-    @IBAction func showColorPicker(_ sender: NSMenuItem) {
-        colorPicker?.showWindow(nil)
-    }
 }
 
 extension AppDelegate: NSApplicationDelegate {
@@ -33,6 +31,8 @@ extension AppDelegate: NSApplicationDelegate {
         } else {
             paletteCollection = PaletteCollection()
         }
+        mainMenuController.colorPicker = colorPicker
+        mainMenuController.palettesCollection = paletteCollection
         colorPicker?.showWindow(nil)
     }
 

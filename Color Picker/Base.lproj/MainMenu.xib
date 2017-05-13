@@ -12,7 +12,6 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="V4f-8T-Vb0" customClass="AppDelegate" customModule="Color_Picker" customModuleProvider="target"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="Color Picker" id="1Xt-HY-uBw">
@@ -26,7 +25,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="showPreferences:" target="dE0-6b-Fah" id="CMq-Lz-F4z"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -65,17 +68,30 @@
                         <items>
                             <menuItem title="Add to Palette" id="DTj-6x-TbL">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Add to Palette" id="IBN-Ug-t0j"/>
+                                <menu key="submenu" title="Add to Palette" id="IBN-Ug-t0j">
+                                    <connections>
+                                        <outlet property="delegate" destination="dE0-6b-Fah" id="07N-ms-Fgw"/>
+                                    </connections>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="hOl-ub-soa"/>
                             <menuItem title="Copy as RGB (Hexadecimal)" keyEquivalent="1" id="942-u1-0hY">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="copyCurrentColorAsRGBHexadecimal:" target="dE0-6b-Fah" id="gwe-DX-y6O"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Copy as RGB (Decimal)" keyEquivalent="2" id="2gf-ZJ-QXh">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="copyCurrentColorAsRGBDecimal:" target="dE0-6b-Fah" id="XLj-pX-hb7"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Copy as CYMK" keyEquivalent="3" id="VNp-dv-8tK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="copyCurrentColorAsCYMK:" target="dE0-6b-Fah" id="oC5-QP-S4N"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -124,10 +140,6 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Palettes" id="MQI-RH-BaT">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Palettes" id="p0v-NO-G4d"/>
-                </menuItem>
                 <menuItem title="Window" id="aUF-d1-5bR">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -146,7 +158,12 @@
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                             <menuItem title="Color Picker" keyEquivalent="9" id="KJh-LD-foB">
                                 <connections>
-                                    <action selector="showColorPicker:" target="V4f-8T-Vb0" id="sis-tR-kCX"/>
+                                    <action selector="showColorPicker:" target="dE0-6b-Fah" id="loq-hC-BMz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Palettes" keyEquivalent="0" id="GAM-YF-GBZ">
+                                <connections>
+                                    <action selector="showPalettes:" target="dE0-6b-Fah" id="kDJ-s0-bkX"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Kp5-c2-mOr"/>
@@ -173,5 +190,15 @@
                 </menuItem>
             </items>
         </menu>
+        <customObject id="V4f-8T-Vb0" customClass="AppDelegate" customModule="Color_Picker" customModuleProvider="target">
+            <connections>
+                <outlet property="mainMenuController" destination="dE0-6b-Fah" id="wvS-so-8KU"/>
+            </connections>
+        </customObject>
+        <customObject id="dE0-6b-Fah" customClass="MainMenuController" customModule="Color_Picker" customModuleProvider="target">
+            <connections>
+                <outlet property="addToPaletteMenu" destination="IBN-Ug-t0j" id="YRB-8q-q2A"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
