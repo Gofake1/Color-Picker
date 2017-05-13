@@ -10,6 +10,7 @@ import Cocoa
 
 class PaletteCollectionViewItem: NSCollectionViewItem {
 
+    @IBOutlet weak var label: NSTextField!
     @IBOutlet weak var paletteColorsView: PaletteColorsView!
 
     override var nibName: String? {
@@ -25,6 +26,13 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
                                        options: nil)
                 paletteColorsView.needsDisplay = true
             }
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            label.textColor = isSelected ? NSColor.white : NSColor.black
+            (view as! HighlightingView).shouldHighlight = isSelected
         }
     }
 }
