@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F71b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="5Ti-dj-kua">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="DNG-ww-oxo">
+            <objects>
+                <windowController id="5Ti-dj-kua" sceneMemberID="viewController">
+                    <window key="window" title="Palettes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="67F-xd-4DU">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+                        <rect key="contentRect" x="294" y="372" width="216" height="350"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+                        <value key="minSize" type="size" width="216" height="200"/>
+                        <value key="maxSize" type="size" width="216" height="2000"/>
+                        <toolbar key="toolbar" implicitIdentifier="F7E8643F-4DBE-4181-AF16-6D019D521329" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="9Q1-I6-5nS">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="B97D6646-3C24-4711-A8FD-FD0CC07CF414" label="Search" paletteLabel="Search" id="pGo-Ko-OBR">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="96" height="22"/>
+                                    <size key="maxSize" width="178" height="22"/>
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="A8M-k6-N9r">
+                                        <rect key="frame" x="0.0" y="14" width="178" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="UCt-Cu-aPd">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </searchFieldCell>
+                                        <connections>
+                                            <action selector="updateSearchPredicate:" target="aQu-rl-cFa" id="c5P-6X-uqc"/>
+                                        </connections>
+                                    </searchField>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="9EFE8859-E776-4760-8315-A5211B376CE4" label="Add Palette" paletteLabel="Add Palette" image="NSAddTemplate" id="kps-fz-UOt">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="26" height="25"/>
+                                    <size key="maxSize" width="30" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="6Sb-OS-jKk">
+                                        <rect key="frame" x="21" y="14" width="26" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XgX-OW-SjM">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addPalette:" target="aQu-rl-cFa" id="hpD-0Y-N4h"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="pGo-Ko-OBR"/>
+                                <toolbarItem reference="kps-fz-UOt"/>
+                            </defaultToolbarItems>
+                        </toolbar>
+                    </window>
+                    <connections>
+                        <segue destination="p0u-Xk-qtJ" kind="relationship" relationship="window.shadowedContentViewController" id="lNc-is-hO7"/>
+                    </connections>
+                </windowController>
+                <customObject id="aQu-rl-cFa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="zCV-MQ-xsr"/>
+            </objects>
+            <point key="canvasLocation" x="-41" y="-48"/>
+        </scene>
+        <!--Palette View Controller-->
+        <scene sceneID="EMR-7O-AZ4">
+            <objects>
+                <viewController id="p0u-Xk-qtJ" customClass="PaletteViewController" customModule="Color_Picker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="3jd-u1-sTc">
+                        <rect key="frame" x="0.0" y="0.0" width="216" height="350"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MB-3F-5ZV">
+                                <rect key="frame" x="0.0" y="0.0" width="216" height="350"/>
+                                <clipView key="contentView" drawsBackground="NO" id="2HY-BW-m5J">
+                                    <rect key="frame" x="0.0" y="0.0" width="216" height="350"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView selectable="YES" allowsMultipleSelection="YES" id="93B-by-nF6">
+                                            <rect key="frame" x="0.0" y="0.0" width="216" height="350"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" id="U4u-KD-dr3">
+                                                <size key="itemSize" width="216" height="43"/>
+                                                <edgeInsets key="sectionInset" left="0.0" right="0.0" top="4" bottom="8"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <binding destination="rtf-2K-j3k" name="content" keyPath="arrangedObjects" id="NGx-9y-Rsn"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="b0g-ob-RAT">
+                                    <rect key="frame" x="0.0" y="334" width="216" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="siG-hj-Df3">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="7MB-3F-5ZV" secondAttribute="bottom" id="5Mj-OA-jmS"/>
+                            <constraint firstItem="7MB-3F-5ZV" firstAttribute="top" secondItem="3jd-u1-sTc" secondAttribute="top" id="9YJ-OG-wS2"/>
+                            <constraint firstItem="7MB-3F-5ZV" firstAttribute="leading" secondItem="3jd-u1-sTc" secondAttribute="leading" id="AO1-6x-fWQ"/>
+                            <constraint firstAttribute="trailing" secondItem="7MB-3F-5ZV" secondAttribute="trailing" id="KZ5-cZ-Bfi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionController" destination="rtf-2K-j3k" id="oDa-DD-qqj"/>
+                        <outlet property="collectionView" destination="93B-by-nF6" id="yNf-MN-VvG"/>
+                    </connections>
+                </viewController>
+                <customObject id="e83-aV-qqE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController objectClassName="NSMutableArray" id="rtf-2K-j3k">
+                    <connections>
+                        <binding destination="p0u-Xk-qtJ" name="contentArray" keyPath="self.paletteCollection.palettes" id="BJR-G3-oc1">
+                            <dictionary key="options">
+                                <bool key="NSDeletesObjectsOnRemove" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </arrayController>
+            </objects>
+            <point key="canvasLocation" x="-41" y="428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
+</document>

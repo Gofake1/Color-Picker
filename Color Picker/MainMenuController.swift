@@ -13,6 +13,7 @@ class MainMenuController: NSObject {
     @IBOutlet weak var addToPaletteMenu: NSMenu!
     // Injected by AppDelegate
     weak var colorPicker: NSWindowController?
+    weak var palettes: NSWindowController?
     weak var palettesCollection: PaletteCollection!
 
     @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
@@ -32,7 +33,7 @@ class MainMenuController: NSObject {
     }
 
     @IBAction func showPalettes(_ sender: NSMenuItem) {
-
+        palettes?.showWindow(nil)
     }
 
     @IBAction func showPreferences(_ sender: NSMenuItem) {

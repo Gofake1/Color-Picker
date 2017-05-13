@@ -21,6 +21,12 @@ class AppDelegate: NSObject {
         return colorPicker
     }()
 
+    fileprivate lazy var palettes: NSWindowController? = {
+        let palettes = NSStoryboard(name: "Palettes", bundle: nil).instantiateInitialController()
+            as? NSWindowController
+        palettes?.window?.isExcludedFromWindowsMenu = true
+        return palettes
+    }()
 }
 
 extension AppDelegate: NSApplicationDelegate {
@@ -32,7 +38,10 @@ extension AppDelegate: NSApplicationDelegate {
             paletteCollection = PaletteCollection()
         }
         mainMenuController.colorPicker = colorPicker
+        mainMenuController.palettes = palettes
         mainMenuController.palettesCollection = paletteCollection
+        (palettes?.contentViewController as! PaletteViewController).paletteCollection = paletteCollection
+
         colorPicker?.showWindow(nil)
     }
 
