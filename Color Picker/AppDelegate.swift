@@ -11,6 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject {
 
+    var paletteCollection: PaletteCollection!
+
     fileprivate lazy var colorPicker: NSWindowController? = {
         let colorPicker = NSStoryboard(name: "ColorPicker", bundle: nil).instantiateInitialController()
             as? NSWindowController
@@ -26,11 +28,17 @@ class AppDelegate: NSObject {
 extension AppDelegate: NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if let palettesData = UserDefaults.standard.data(forKey: "palettes") {
+            paletteCollection = NSKeyedUnarchiver.unarchiveObject(with: palettesData) as! PaletteCollection
+        } else {
+            paletteCollection = PaletteCollection()
+        }
         colorPicker?.showWindow(nil)
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    func applicationWillTerminate(_ notification: Notification) {
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: paletteCollection),
+                                  forKey: "palettes")
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
