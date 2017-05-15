@@ -15,6 +15,7 @@ protocol ColorWheelViewDelegate: class {
 @IBDesignable
 class ColorWheelView: NSView {
 
+    private(set) var selectedColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
     var brightness: CGFloat = 1.0 {
         didSet {
             guard oldValue != brightness else { return }
@@ -22,7 +23,6 @@ class ColorWheelView: NSView {
             needsDisplay = true
         }
     }
-    private(set) var selectedColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
     weak var delegate: ColorWheelViewDelegate?
     private var colorWheelImage: CGImage!
     private var colorWheelShouldRedraw = true
@@ -104,16 +104,28 @@ class ColorWheelView: NSView {
     }
 
     private func setColor(at point: CGPoint) {
+        let centerX = frame.width/2
+        let centerY = frame.height/2
         selectedColor = RGB(coord: (Int(point.x), Int(point.y)),
-                            center: (Int(frame.width/2), Int(frame.height/2)),
+                            center: (Int(centerX), Int(centerY)),
                             brightness: brightness).cgColor
-        crosshairLocation = point
+
+        let vX = point.x - centerX
+        let vY = point.y - centerY
+        let distanceFromCenter = sqrt((vX*vX) + (vY*vY))
+        let radius = frame.width/2
+        if distanceFromCenter > radius {
+            crosshairLocation = CGPoint(x: centerX + vX/distanceFromCenter * radius,
+                                        y: centerY + vY/distanceFromCenter * radius)
+        } else {
+            crosshairLocation = point
+        }
+
         delegate?.colorDidChange(selectedColor)
     }
 
     // MARK: - Mouse
 
-    //TODO: Stop crosshair from leaving circle
     override func mouseDown(with event: NSEvent) {
         setColor(at: convert(event.locationInWindow, from: nil))
     }
