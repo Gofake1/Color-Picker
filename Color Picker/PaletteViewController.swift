@@ -19,6 +19,10 @@ class PaletteViewController: NSViewController {
         collectionView.register(PaletteCollectionViewItem.self, forItemWithIdentifier: "palette")
     }
 
+    override func deleteBackward(_ sender: Any?) {
+        collectionController.remove(atArrangedObjectIndexes: collectionView.selectionIndexes)
+    }
+
     @IBAction func addPalette(_ sender: NSButton) {
         paletteCollection.addPalette(Palette())
     }
