@@ -32,7 +32,6 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
     override var isSelected: Bool {
         didSet {
             label.textColor = isSelected ? NSColor.white : NSColor.black
-            (view as! HighlightingView).shouldHighlight = isSelected
         }
     }
 }
