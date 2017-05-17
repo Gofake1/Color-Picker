@@ -8,14 +8,16 @@
 
 import Cocoa
 
+typealias RGB = (r: UInt8, g: UInt8, b: UInt8)
+
 protocol ColorWheelViewDelegate: class {
-    func colorDidChange(_ newColor: CGColor)
+    func colorDidChange(_ newColor: NSColor)
 }
 
 @IBDesignable
 class ColorWheelView: NSView {
 
-    private(set) var selectedColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+    private(set) var selectedColor = NSColor.white
     var brightness: CGFloat = 1.0 {
         didSet {
             guard oldValue != brightness else { return }
@@ -65,9 +67,9 @@ class ColorWheelView: NSView {
 
     func setColor(_ color: NSColor) {
         brightness = color.scaledBrightness
-        selectedColor = color.cgColor
+        selectedColor = color
         let center = CGPoint(x: frame.width/2, y: frame.height/2)
-        crosshairLocation = point(for: color.cgColor, center: center) ?? center
+        crosshairLocation = point(for: color, center: center) ?? center
     }
 
     private func colorWheelImage(rect: NSRect, brightness: CGFloat) -> CGImage {
@@ -75,7 +77,10 @@ class ColorWheelView: NSView {
         var imageBytes = [RGB]()
         for j in stride(from: height, to: 0, by: -1) {
             for i in 0..<width {
-                imageBytes.append(RGB(coord: (i, j), center: (width/2, height/2), brightness: brightness))
+                let color = NSColor(coord: (i, j), center: (width/2, height/2), brightness: brightness)
+                imageBytes.append(RGB(r: UInt8(color.redComponent*255),
+                                      g: UInt8(color.greenComponent*255),
+                                      b: UInt8(color.blueComponent*255)))
             }
         }
         return CGImage(width: width,
@@ -93,11 +98,11 @@ class ColorWheelView: NSView {
                        intent: .defaultIntent)!
     }
 
-    private func point(for color: CGColor, center: CGPoint) -> CGPoint? {
-        guard let components = color.components else { return nil }
-        let hsv = HSV(r: components[0], g: components[1], b: components[2])
-        let angle = hsv.h * 2 * CGFloat.pi
-        let distance = hsv.s * center.x
+    private func point(for color: NSColor, center: CGPoint) -> CGPoint? {
+        let h = color.hueComponent
+        let s = color.saturationComponent
+        let angle = h * 2 * CGFloat.pi
+        let distance = s * center.x
         let x = center.x + sin(angle)*distance
         let y = center.y + cos(angle)*distance
         return CGPoint(x: x, y: y)
@@ -106,9 +111,9 @@ class ColorWheelView: NSView {
     private func setColor(at point: CGPoint) {
         let centerX = frame.width/2
         let centerY = frame.height/2
-        selectedColor = RGB(coord: (Int(point.x), Int(point.y)),
-                            center: (Int(centerX), Int(centerY)),
-                            brightness: brightness).cgColor
+        selectedColor = NSColor(coord: (Int(point.x), Int(point.y)),
+                                center: (Int(centerX), Int(centerY)),
+                                brightness: brightness)
 
         let vX = point.x - centerX
         let vY = point.y - centerY

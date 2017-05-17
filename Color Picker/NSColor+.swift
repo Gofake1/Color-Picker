@@ -40,4 +40,12 @@ extension NSColor {
                   blue:  CGFloat((hexInt >> 0) & 0xFF) / 255.0,
                   alpha: 1)
     }
+
+    convenience init(coord: (x: Int, y: Int), center: (x: Int, y: Int), brightness: CGFloat) {
+        let angle      = atan2(CGFloat(center.x - coord.x), CGFloat(center.y - coord.y)) + CGFloat.pi
+        let distance   = sqrt(pow(CGFloat(center.x - coord.x), 2) + pow(CGFloat(center.y - coord.y), 2))
+        let hue        = max(min(angle / (CGFloat.pi * 2), 1), 0)
+        let saturation = max(min(distance / CGFloat(center.x), 1), 0)
+        self.init(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
+    }
 }
