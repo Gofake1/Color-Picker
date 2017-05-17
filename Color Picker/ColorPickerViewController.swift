@@ -13,31 +13,23 @@ class ColorPickerViewController: NSViewController {
     @IBOutlet weak var brightnessSlider: NSSlider!
     @IBOutlet weak var colorLabel: NSTextField!
     @IBOutlet weak var colorWheelView: ColorWheelView!
+    // Injected by AppDelegate
+    weak var colorController: ColorController!
 
     override func viewDidLoad() {
         colorWheelView.delegate = self
     }
 
+    /// - postcondition: Mutates `colorController.selectedColor`
     @IBAction func setBrightness(_ sender: NSSlider) {
         let brightness = CGFloat((sender.maxValue-sender.doubleValue) / sender.maxValue)
-        updateColorWheel(brightness)
-        updateLabel(brightness)
-    }
-
-    private func updateColorWheel(_ brightness: CGFloat) {
         colorWheelView.brightness = brightness
-    }
-
-    fileprivate func updateColorWheel(_ color: NSColor) {
-        colorWheelView.setColor(color)
-    }
-
-    private func updateLabel(_ brightness: CGFloat) {
-        let masterColor = NSColor(cgColor: colorWheelView.selectedColor)!
-        let newColor = NSColor(calibratedHue: masterColor.hueComponent,
-                               saturation: masterColor.saturationComponent,
+        let oldColor = colorController.selectedColor
+        let newColor = NSColor(calibratedHue: oldColor.hueComponent,
+                               saturation: oldColor.saturationComponent,
                                brightness: brightness,
                                alpha: 1.0)
+        colorController.selectedColor = newColor
         updateLabel(newColor)
     }
 
@@ -66,10 +58,11 @@ class ColorPickerViewController: NSViewController {
 }
 
 extension ColorPickerViewController: ColorWheelViewDelegate {
-    func colorDidChange(_ newColor: CGColor) {
-        guard let color = NSColor(cgColor: newColor) else { fatalError() }
-        updateLabel(color)
-        updateSlider(color)
+    /// - postcondition: Mutates `colorController.selectedColor`
+    func colorDidChange(_ newColor: NSColor) {
+        colorController.selectedColor = newColor
+        updateLabel(newColor)
+        updateSlider(newColor)
     }
 }
 
@@ -99,10 +92,12 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
         return false
     }
 
+    /// - postcondition: Mutates `colorController.selectedColor`
     override func controlTextDidEndEditing(_ obj: Notification) {
         let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
         let color = NSColor(hexString: string)
-        updateColorWheel(color)
+        colorController.selectedColor = color
+        colorWheelView.setColor(color)
         updateLabel(color, false)
         updateSlider(color)
         view.window?.makeFirstResponder(view)

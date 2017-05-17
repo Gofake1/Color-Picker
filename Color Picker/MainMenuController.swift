@@ -12,6 +12,7 @@ class MainMenuController: NSObject {
 
     @IBOutlet weak var addToPaletteMenu: NSMenu!
     // Injected by AppDelegate
+    weak var colorController: ColorController!
     weak var colorPicker: NSWindowController?
     weak var palettes: NSWindowController?
     weak var palettesCollection: PaletteCollection!
@@ -42,6 +43,7 @@ class MainMenuController: NSObject {
 
     func addColorToPalette(_ sender: NSMenuItem) {
         guard let palette = sender.representedObject as? Palette else { fatalError() }
+        palette.addColor(colorController.selectedColor)
     }
 }
 

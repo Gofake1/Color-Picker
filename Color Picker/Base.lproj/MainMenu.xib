@@ -192,6 +192,7 @@
         </menu>
         <customObject id="V4f-8T-Vb0" customClass="AppDelegate" customModule="Color_Picker" customModuleProvider="target">
             <connections>
+                <outlet property="colorController" destination="aeH-vu-vMP" id="Xv2-6T-4bR"/>
                 <outlet property="mainMenuController" destination="dE0-6b-Fah" id="wvS-so-8KU"/>
             </connections>
         </customObject>
@@ -200,5 +201,6 @@
                 <outlet property="addToPaletteMenu" destination="IBN-Ug-t0j" id="YRB-8q-q2A"/>
             </connections>
         </customObject>
+        <customObject id="aeH-vu-vMP" customClass="ColorController" customModule="Color_Picker" customModuleProvider="target"/>
     </objects>
 </document>

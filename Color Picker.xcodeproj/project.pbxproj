@@ -23,6 +23,7 @@
 		4A720F841EBE8B8800205678 /* Palettes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A720F861EBE8B8800205678 /* Palettes.storyboard */; };
 		4AC3DDBE1EC185E600E08B8D /* PaletteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDBD1EC185E600E08B8D /* PaletteCollection.swift */; };
 		4AC3DDC11EC2B87D00E08B8D /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDC01EC2B87D00E08B8D /* MainMenuController.swift */; };
+		4AC3DDCB1ECA418200E08B8D /* ColorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDCA1ECA418200E08B8D /* ColorController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		4A720F851EBE8B8800205678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Palettes.storyboard; sourceTree = "<group>"; };
 		4AC3DDBD1EC185E600E08B8D /* PaletteCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteCollection.swift; sourceTree = "<group>"; };
 		4AC3DDC01EC2B87D00E08B8D /* MainMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
+		4AC3DDCA1ECA418200E08B8D /* ColorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				4A62A8101EBEBA07003A02D2 /* MainMenu.xib */,
 				4A62A81B1EBED0FB003A02D2 /* PaletteCollectionViewItem.xib */,
 				4A66F1861EBC24E200D81A4A /* AppDelegate.swift */,
+				4AC3DDCA1ECA418200E08B8D /* ColorController.swift */,
 				4A66F1881EBC24E200D81A4A /* ColorPickerViewController.swift */,
 				4A66F1961EBC274100D81A4A /* ColorWheelView.swift */,
 				4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */,
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */,
+				4AC3DDCB1ECA418200E08B8D /* ColorController.swift in Sources */,
 				4A62A81D1EBED596003A02D2 /* PaletteCollectionViewItem.swift in Sources */,
 				4A62A8141EBECDCA003A02D2 /* PaletteViewController.swift in Sources */,
 				4A66F1971EBC274100D81A4A /* ColorWheelView.swift in Sources */,

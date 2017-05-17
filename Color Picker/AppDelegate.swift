@@ -11,10 +11,11 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject {
 
+    @IBOutlet weak var colorController: ColorController!
     @IBOutlet weak var mainMenuController: MainMenuController!
     var paletteCollection: PaletteCollection!
 
-    fileprivate lazy var colorPicker: NSWindowController? = {
+    fileprivate var colorPicker: NSWindowController? = {
         let colorPicker = NSStoryboard(name: "ColorPicker", bundle: nil).instantiateInitialController()
             as? NSWindowController
         colorPicker?.window?.isExcludedFromWindowsMenu = true
@@ -37,9 +38,12 @@ extension AppDelegate: NSApplicationDelegate {
         } else {
             paletteCollection = PaletteCollection()
         }
-        mainMenuController.colorPicker = colorPicker
-        mainMenuController.palettes = palettes
+
+        mainMenuController.colorController    = colorController
+        mainMenuController.colorPicker        = colorPicker
+        mainMenuController.palettes           = palettes
         mainMenuController.palettesCollection = paletteCollection
+        (colorPicker?.contentViewController as! ColorPickerViewController).colorController = colorController
         (palettes?.contentViewController as! PaletteViewController).paletteCollection = paletteCollection
 
         colorPicker?.showWindow(nil)
