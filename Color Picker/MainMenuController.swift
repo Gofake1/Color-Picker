@@ -17,16 +17,23 @@ class MainMenuController: NSObject {
     weak var palettes: NSWindowController?
     weak var palettesCollection: PaletteCollection!
 
-    @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
+    override func awakeFromNib() {
+        NSPasteboard.general().declareTypes([NSPasteboardTypeString], owner: self)
+    }
 
+    @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
+        NSPasteboard.general().setString(colorController.selectedColor.rgbHexString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsRGBDecimal(_ sender: NSMenuItem) {
-
+        NSPasteboard.general().setString(colorController.selectedColor.rgbDecString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsCYMK(_ sender: NSMenuItem) {
-
+        NSPasteboard.general().setString(colorController.selectedColor.cmykString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func showColorPicker(_ sender: NSMenuItem) {

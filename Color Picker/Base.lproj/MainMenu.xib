@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F71b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16G8c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -87,7 +87,7 @@
                                     <action selector="copyCurrentColorAsRGBDecimal:" target="dE0-6b-Fah" id="XLj-pX-hb7"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Copy as CYMK" keyEquivalent="3" id="VNp-dv-8tK">
+                            <menuItem title="Copy as CMYK" keyEquivalent="3" id="VNp-dv-8tK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
                                     <action selector="copyCurrentColorAsCYMK:" target="dE0-6b-Fah" id="oC5-QP-S4N"/>

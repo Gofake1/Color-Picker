@@ -36,7 +36,7 @@ class ColorPickerViewController: NSViewController {
     fileprivate func updateLabel(_ color: NSColor, _ labelTextShouldChange: Bool = true) {
         colorLabel.backgroundColor = color
         if labelTextShouldChange {
-            colorLabel.stringValue = "#\(color.hexString)"
+            colorLabel.stringValue = "#\(color.rgbHexString)"
         }
         if color.scaledBrightness < 0.5 {
             colorLabel.textColor = NSColor.white
