@@ -23,6 +23,7 @@
 		4A720F841EBE8B8800205678 /* Palettes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A720F861EBE8B8800205678 /* Palettes.storyboard */; };
 		4AC3DDBE1EC185E600E08B8D /* PaletteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDBD1EC185E600E08B8D /* PaletteCollection.swift */; };
 		4AC3DDC11EC2B87D00E08B8D /* MainMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDC01EC2B87D00E08B8D /* MainMenuController.swift */; };
+		4AC3DDC91EC7EBF100E08B8D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 4AC3DDC81EC7EBF100E08B8D /* LICENSE */; };
 		4AC3DDCB1ECA418200E08B8D /* ColorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC3DDCA1ECA418200E08B8D /* ColorController.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,8 @@
 		4A720F851EBE8B8800205678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Palettes.storyboard; sourceTree = "<group>"; };
 		4AC3DDBD1EC185E600E08B8D /* PaletteCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteCollection.swift; sourceTree = "<group>"; };
 		4AC3DDC01EC2B87D00E08B8D /* MainMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuController.swift; sourceTree = "<group>"; };
+		4AC3DDC61EC7B26300E08B8D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4AC3DDC81EC7EBF100E08B8D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4AC3DDCA1ECA418200E08B8D /* ColorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +66,8 @@
 		4A66F17A1EBC24E200D81A4A = {
 			isa = PBXGroup;
 			children = (
+				4AC3DDC61EC7B26300E08B8D /* README.md */,
+				4AC3DDC81EC7EBF100E08B8D /* LICENSE */,
 				4A66F1851EBC24E200D81A4A /* Color Picker */,
 				4A66F1841EBC24E200D81A4A /* Products */,
 			);
@@ -169,6 +174,7 @@
 			files = (
 				4A720F841EBE8B8800205678 /* Palettes.storyboard in Resources */,
 				4A66F18B1EBC24E200D81A4A /* Assets.xcassets in Resources */,
+				4AC3DDC91EC7EBF100E08B8D /* LICENSE in Resources */,
 				4A62A8091EBEB4A4003A02D2 /* ColorPicker.storyboard in Resources */,
 				4A62A8191EBED0FB003A02D2 /* PaletteCollectionViewItem.xib in Resources */,
 				4A62A80E1EBEBA07003A02D2 /* MainMenu.xib in Resources */,
