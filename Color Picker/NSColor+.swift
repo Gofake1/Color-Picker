@@ -60,3 +60,9 @@ extension NSColor {
         self.init(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
     }
 }
+
+extension NSColor: Comparable {
+    public static func < (lhs: NSColor, rhs: NSColor) -> Bool {
+        return lhs.hueComponent < rhs.hueComponent
+    }
+}
