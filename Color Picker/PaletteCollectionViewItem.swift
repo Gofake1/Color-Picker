@@ -34,4 +34,14 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
             label.textColor = isSelected ? NSColor.white : NSColor.black
         }
     }
+
+    override func awakeFromNib() {
+        paletteColorsView.delegate = self
+    }
+}
+
+extension PaletteCollectionViewItem: PaletteColorsViewDelegate {
+    func selectColor(_ color: NSColor) {
+        ColorController.shared.setColor(color)
+    }
 }

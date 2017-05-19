@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F71b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="5Ti-dj-kua">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G8c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="5Ti-dj-kua">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -91,7 +91,7 @@
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
-                                                <binding destination="rtf-2K-j3k" name="content" keyPath="arrangedObjects" id="NGx-9y-Rsn"/>
+                                                <binding destination="rtf-2K-j3k" name="content" keyPath="arrangedObjects" id="DL0-uc-0xP"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>

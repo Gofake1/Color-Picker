@@ -11,7 +11,6 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject {
 
-    @IBOutlet weak var colorController: ColorController!
     @IBOutlet weak var mainMenuController: MainMenuController!
     var paletteCollection: PaletteCollection!
 
@@ -39,11 +38,9 @@ extension AppDelegate: NSApplicationDelegate {
             paletteCollection = PaletteCollection()
         }
 
-        mainMenuController.colorController    = colorController
         mainMenuController.colorPicker        = colorPicker
         mainMenuController.palettes           = palettes
         mainMenuController.palettesCollection = paletteCollection
-        (colorPicker?.contentViewController as! ColorPickerViewController).colorController = colorController
         (palettes?.contentViewController as! PaletteViewController).paletteCollection = paletteCollection
 
         colorPicker?.showWindow(nil)

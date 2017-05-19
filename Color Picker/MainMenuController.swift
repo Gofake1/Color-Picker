@@ -12,7 +12,6 @@ class MainMenuController: NSObject {
 
     @IBOutlet weak var addToPaletteMenu: NSMenu!
     // Injected by AppDelegate
-    weak var colorController: ColorController!
     weak var colorPicker: NSWindowController?
     weak var palettes: NSWindowController?
     weak var palettesCollection: PaletteCollection!
@@ -22,17 +21,17 @@ class MainMenuController: NSObject {
     }
 
     @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(colorController.selectedColor.rgbHexString,
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbHexString,
                                          forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsRGBDecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(colorController.selectedColor.rgbDecString,
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbDecString,
                                          forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsCYMK(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(colorController.selectedColor.cmykString,
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.cmykString,
                                          forType: NSPasteboardTypeString)
     }
 
@@ -50,7 +49,7 @@ class MainMenuController: NSObject {
 
     func addColorToPalette(_ sender: NSMenuItem) {
         guard let palette = sender.representedObject as? Palette else { fatalError() }
-        palette.addColor(colorController.selectedColor)
+        palette.addColor(ColorController.shared.selectedColor)
     }
 }
 

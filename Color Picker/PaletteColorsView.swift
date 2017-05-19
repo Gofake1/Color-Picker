@@ -8,6 +8,10 @@
 
 import Cocoa
 
+protocol PaletteColorsViewDelegate: class {
+    func selectColor(_ color: NSColor)
+}
+
 class PaletteColorsView: NSView {
 
     var colors: Set<NSColor>! {
@@ -15,6 +19,7 @@ class PaletteColorsView: NSView {
             sortedColors = colors.sorted(by: >)
         }
     }
+    weak var delegate: PaletteColorsViewDelegate?
     private var selectedIndex: Int? {
         didSet {
             if oldValue != selectedIndex {
@@ -76,6 +81,12 @@ class PaletteColorsView: NSView {
     }
 
     // MARK: - Mouse
+
+    override func mouseDown(with event: NSEvent) {
+        guard let index = selectedIndex else { return }
+        guard sortedColors.count >= index else { return }
+        delegate?.selectColor(sortedColors[index])
+    }
 
     override func mouseExited(with event: NSEvent) {
         selectedIndex = nil
