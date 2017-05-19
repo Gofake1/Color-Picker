@@ -17,26 +17,15 @@ protocol ColorWheelViewDelegate: class {
 @IBDesignable
 class ColorWheelView: NSView {
 
-    private(set) var selectedColor = NSColor.white
-    var brightness: CGFloat = 1.0 {
-        didSet {
-            guard oldValue != brightness else { return }
-            colorWheelShouldRedraw = true
-            needsDisplay = true
-        }
-    }
+    private(set) var selectedColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     weak var delegate: ColorWheelViewDelegate?
     private var colorWheelImage: CGImage!
     private var colorWheelShouldRedraw = true
-    private var crosshairLocation: CGPoint! {
-        didSet {
-            needsDisplay = true
-        }
-    }
+    private var crosshairLocation: CGPoint!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        colorWheelImage = colorWheelImage(rect: frame, brightness: brightness)
+        colorWheelImage = colorWheelImage(rect: frame, brightness: selectedColor.scaledBrightness)
         crosshairLocation = CGPoint(x: frame.width/2, y: frame.height/2)
     }
 
@@ -44,14 +33,14 @@ class ColorWheelView: NSView {
         guard let context = NSGraphicsContext.current()?.cgContext else { return }
 
         if colorWheelShouldRedraw {
-            colorWheelImage = colorWheelImage(rect: dirtyRect, brightness: brightness)
+            colorWheelImage = colorWheelImage(rect: dirtyRect, brightness: selectedColor.scaledBrightness)
             colorWheelShouldRedraw = false
         }
         context.addEllipse(in: dirtyRect)
         context.clip()
         context.draw(colorWheelImage, in: dirtyRect)
 
-        if brightness < 0.5 {
+        if selectedColor.scaledBrightness < 0.5 {
             context.setStrokeColor(CGColor.white)
         } else {
             context.setStrokeColor(CGColor.black)
@@ -65,11 +54,15 @@ class ColorWheelView: NSView {
         context.strokePath()
     }
 
-    func setColor(_ color: NSColor) {
-        brightness = color.scaledBrightness
-        selectedColor = color
+    func setColor(_ newColor: NSColor) {
+        if selectedColor.scaledBrightness != newColor.scaledBrightness {
+            colorWheelShouldRedraw = true
+        }
         let center = CGPoint(x: frame.width/2, y: frame.height/2)
-        crosshairLocation = point(for: color, center: center) ?? center
+        crosshairLocation = point(for: newColor, center: center) ?? center
+
+        selectedColor = newColor
+        needsDisplay = true
     }
 
     private func colorWheelImage(rect: NSRect, brightness: CGFloat) -> CGImage {
@@ -108,12 +101,13 @@ class ColorWheelView: NSView {
         return CGPoint(x: x, y: y)
     }
 
+    /// - postcondition: Calls `delegate`
     private func setColor(at point: CGPoint) {
         let centerX = frame.width/2
         let centerY = frame.height/2
         selectedColor = NSColor(coord: (Int(point.x), Int(point.y)),
                                 center: (Int(centerX), Int(centerY)),
-                                brightness: brightness)
+                                brightness: selectedColor.scaledBrightness)
 
         let vX = point.x - centerX
         let vY = point.y - centerY
@@ -126,6 +120,7 @@ class ColorWheelView: NSView {
             crosshairLocation = point
         }
 
+        needsDisplay = true
         delegate?.colorDidChange(selectedColor)
     }
 
