@@ -92,6 +92,7 @@
                                             <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <binding destination="rtf-2K-j3k" name="content" keyPath="arrangedObjects" id="DL0-uc-0xP"/>
+                                                <outlet property="delegate" destination="p0u-Xk-qtJ" id="hNJ-4I-Y0L"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
