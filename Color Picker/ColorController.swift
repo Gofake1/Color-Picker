@@ -13,13 +13,36 @@ import Cocoa
 class ColorController {
 
     static var shared = ColorController()
-    /// Should only be set by `colorPicker`. Other classes should use `setColor`.
+    // Used to determine `selectedColor`. Should only be set by `colorPicker`. Other classes should use
+    // `setColor(_:)`.
+    var brightness: CGFloat = 1.0 {
+        didSet {
+            selectedColor = NSColor(calibratedHue: masterColor.hueComponent,
+                                    saturation: masterColor.saturationComponent,
+                                    brightness: brightness,
+                                    alpha: 1.0)
+        }
+    }
+    var masterColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) {
+        didSet {
+            selectedColor = NSColor(calibratedHue: masterColor.hueComponent,
+                                    saturation: masterColor.saturationComponent,
+                                    brightness: selectedColor.brightnessComponent,
+                                    alpha: 1.0)
+        }
+    }
+    // Should only be set br `colorPicker`'s `NSTextfield`
     var selectedColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     // Injected by ColorPickerViewController
     weak var colorPicker: ColorPickerViewController!
 
     func setColor(_ color: NSColor) {
         selectedColor = color
+        brightness = color.scaledBrightness
+        masterColor = NSColor(calibratedHue: color.hueComponent,
+                              saturation: color.saturationComponent,
+                              brightness: 1.0,
+                              alpha: 1.0)
         colorPicker.updateSelectedColor()
     }
 }

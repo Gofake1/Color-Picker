@@ -63,6 +63,10 @@ extension NSColor {
 
 extension NSColor: Comparable {
     public static func < (lhs: NSColor, rhs: NSColor) -> Bool {
-        return lhs.hueComponent < rhs.hueComponent
+        if lhs.hueComponent == rhs.hueComponent {
+            return lhs.brightnessComponent < rhs.brightnessComponent
+        } else {
+            return lhs.hueComponent < rhs.hueComponent
+        }
     }
 }

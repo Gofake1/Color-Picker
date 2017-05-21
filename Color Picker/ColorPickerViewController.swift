@@ -21,53 +21,49 @@ class ColorPickerViewController: NSViewController {
 
     /// Should only be called by `colorController`
     func updateSelectedColor() {
-        colorWheelView.setColor(ColorController.shared.selectedColor)
-        updateLabel(ColorController.shared.selectedColor)
-        updateSlider(ColorController.shared.selectedColor)
+        updateColorWheel()
+        updateLabel()
+        updateSlider()
     }
 
-    /// - postcondition: Mutates `colorController.selectedColor`
+    /// - postcondition: Mutates `ColorController.brightness`
     @IBAction func setBrightness(_ sender: NSSlider) {
-        let oldColor = ColorController.shared.selectedColor
-        let newColor = NSColor(calibratedHue: oldColor.hueComponent,
-                               saturation: oldColor.saturationComponent,
-                               brightness: CGFloat((sender.maxValue-sender.doubleValue) / sender.maxValue),
-                               alpha: 1.0)
-        ColorController.shared.selectedColor = newColor
-        colorWheelView.setColor(newColor)
-        updateLabel(newColor)
+        ColorController.shared.brightness = CGFloat((sender.maxValue-sender.doubleValue) / sender.maxValue)
+        updateColorWheel(crosshairShouldChange: false)
+        updateLabel()
     }
 
-    fileprivate func updateLabel(_ color: NSColor, _ labelTextShouldChange: Bool = true) {
-        colorLabel.backgroundColor = color
+    fileprivate func updateColorWheel(crosshairShouldChange: Bool = true) {
+        colorWheelView.setColor(ColorController.shared.selectedColor, crosshairShouldChange)
+    }
+
+    fileprivate func updateLabel(labelTextShouldChange: Bool = true) {
+        colorLabel.backgroundColor = ColorController.shared.selectedColor
         if labelTextShouldChange {
-            colorLabel.stringValue = "#\(color.rgbHexString)"
+            colorLabel.stringValue = "#\(ColorController.shared.selectedColor.rgbHexString)"
         }
-        if color.scaledBrightness < 0.5 {
+        if ColorController.shared.selectedColor.scaledBrightness < 0.5 {
             colorLabel.textColor = NSColor.white
         } else {
             colorLabel.textColor = NSColor.black
         }
     }
 
-    fileprivate func updateSlider(_ color: NSColor) {
+    fileprivate func updateSlider() {
         guard let sliderCell = brightnessSlider.cell as? GradientSliderCell else { fatalError() }
-        sliderCell.colorA = NSColor(calibratedHue: color.hueComponent,
-                                    saturation: color.saturationComponent,
-                                    brightness: 1.0,
-                                    alpha: 1.0)
+        sliderCell.colorA = ColorController.shared.masterColor
         brightnessSlider.drawCell(sliderCell)
-        brightnessSlider.doubleValue = brightnessSlider.maxValue - (Double(color.scaledBrightness) *
+        brightnessSlider.doubleValue = brightnessSlider.maxValue - (Double(ColorController.shared.brightness) *
             brightnessSlider.maxValue)
     }
 }
 
 extension ColorPickerViewController: ColorWheelViewDelegate {
-    /// - postcondition: Mutates `colorController.selectedColor`
+    /// - postcondition: Mutates `ColorController.masterColor`
     func colorDidChange(_ newColor: NSColor) {
-        ColorController.shared.selectedColor = newColor
-        updateLabel(newColor)
-        updateSlider(newColor)
+        ColorController.shared.masterColor = newColor
+        updateLabel()
+        updateSlider()
     }
 }
 
@@ -79,14 +75,15 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
         switch string.characters.count {
         case 6:
             guard string.containsOnlyHexCharacters() else { return false }
+            return true
         case 7:
             guard string.hasPrefix("#") else { return false }
             var trimmed = string; trimmed.remove(at: trimmed.startIndex)
             guard trimmed.containsOnlyHexCharacters() else { return false }
+            return true
         default:
             return false
         }
-        return true
     }
 
     func control(_ control: NSControl, isValidObject obj: Any?) -> Bool {
@@ -102,9 +99,9 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
         let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
         let color = NSColor(hexString: string)
         ColorController.shared.selectedColor = color
-        colorWheelView.setColor(color)
-        updateLabel(color, false)
-        updateSlider(color)
+        updateColorWheel()
+        updateLabel(labelTextShouldChange: false)
+        updateSlider()
 
         view.window?.makeFirstResponder(view)
     }

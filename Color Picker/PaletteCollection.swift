@@ -18,9 +18,9 @@ class PaletteCollection: NSObject, NSCoding {
                     colors: [NSColor.red, NSColor.orange, NSColor.yellow, NSColor.green, NSColor.blue,
                              NSColor.purple]),
             Palette(name: "Grayscale",
-                    colors: [NSColor.white, NSColor.gray, NSColor.black])
+                    colors: [NSColor.white, NSColor(white: 0.75, alpha: 1.0), NSColor.gray,
+                             NSColor(white: 0.25, alpha: 1.0), NSColor.black])
         ]
-        super.init()
     }
 
     func addPalette(_ palette: Palette) {

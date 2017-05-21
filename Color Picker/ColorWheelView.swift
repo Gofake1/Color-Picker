@@ -17,30 +17,33 @@ protocol ColorWheelViewDelegate: class {
 @IBDesignable
 class ColorWheelView: NSView {
 
-    private(set) var selectedColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     weak var delegate: ColorWheelViewDelegate?
+    /// The color in the crosshair
+    private(set) var selectedColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    private var blackImage: CGImage!
+    /// Used in drawing, doesn't affect `selectedColor`
+    private var brightness: CGFloat = 1.0
     private var colorWheelImage: CGImage!
-    private var colorWheelShouldRedraw = true
     private var crosshairLocation: CGPoint!
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        colorWheelImage = colorWheelImage(rect: frame, brightness: selectedColor.scaledBrightness)
+        blackImage        = blackImage(rect: frame)
+        colorWheelImage   = colorWheelImage(rect: frame)
         crosshairLocation = CGPoint(x: frame.width/2, y: frame.height/2)
     }
 
     override func draw(_ dirtyRect: NSRect) {
         guard let context = NSGraphicsContext.current()?.cgContext else { return }
 
-        if colorWheelShouldRedraw {
-            colorWheelImage = colorWheelImage(rect: dirtyRect, brightness: selectedColor.scaledBrightness)
-            colorWheelShouldRedraw = false
-        }
         context.addEllipse(in: dirtyRect)
         context.clip()
         context.draw(colorWheelImage, in: dirtyRect)
+        context.setAlpha(1-brightness)
+        context.draw(blackImage, in: dirtyRect)
+        context.setAlpha(1.0)
 
-        if selectedColor.scaledBrightness < 0.5 {
+        if brightness < 0.5 {
             context.setStrokeColor(CGColor.white)
         } else {
             context.setStrokeColor(CGColor.black)
@@ -54,28 +57,37 @@ class ColorWheelView: NSView {
         context.strokePath()
     }
 
-    func setColor(_ newColor: NSColor) {
-        if selectedColor.scaledBrightness != newColor.scaledBrightness {
-            colorWheelShouldRedraw = true
+    func setColor(_ newColor: NSColor, _ redrawCrosshair: Bool = true) {
+        if redrawCrosshair {
+            let center = CGPoint(x: frame.width/2, y: frame.height/2)
+            crosshairLocation = point(for: newColor, center: center) ?? center
         }
-        let center = CGPoint(x: frame.width/2, y: frame.height/2)
-        crosshairLocation = point(for: newColor, center: center) ?? center
-
         selectedColor = newColor
+        brightness = newColor.scaledBrightness
         needsDisplay = true
     }
 
-    private func colorWheelImage(rect: NSRect, brightness: CGFloat) -> CGImage {
+    private func blackImage(rect: NSRect) -> CGImage {
+        let width = Int(rect.width), height = Int(rect.height)
+        var imageBytes = [RGB](repeating: RGB(r: 0, g: 0, b: 0), count: width * height)
+        return cgImage(bytes: &imageBytes, width: width, height: height)
+    }
+
+    private func colorWheelImage(rect: NSRect) -> CGImage {
         let width = Int(rect.width), height = Int(rect.height)
         var imageBytes = [RGB]()
         for j in stride(from: height, to: 0, by: -1) {
             for i in 0..<width {
-                let color = NSColor(coord: (i, j), center: (width/2, height/2), brightness: brightness)
+                let color = NSColor(coord: (i, j), center: (width/2, height/2), brightness: 1.0)
                 imageBytes.append(RGB(r: UInt8(color.redComponent*255),
                                       g: UInt8(color.greenComponent*255),
                                       b: UInt8(color.blueComponent*255)))
             }
         }
+        return cgImage(bytes: &imageBytes, width: width, height: height)
+    }
+
+    private func cgImage(bytes: inout [RGB], width: Int, height: Int) -> CGImage {
         return CGImage(width: width,
                        height: height,
                        bitsPerComponent: 8,
@@ -83,8 +95,8 @@ class ColorWheelView: NSView {
                        bytesPerRow: width * MemoryLayout<RGB>.size,
                        space: CGColorSpaceCreateDeviceRGB(),
                        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
-                       provider: CGDataProvider(data: NSData(bytes: &imageBytes,
-                                                             length: imageBytes.count *
+                       provider: CGDataProvider(data: NSData(bytes: &bytes,
+                                                             length: bytes.count *
                                                                 MemoryLayout<RGB>.size))!,
                        decode: nil,
                        shouldInterpolate: false,
@@ -107,7 +119,7 @@ class ColorWheelView: NSView {
         let centerY = frame.height/2
         selectedColor = NSColor(coord: (Int(point.x), Int(point.y)),
                                 center: (Int(centerX), Int(centerY)),
-                                brightness: selectedColor.scaledBrightness)
+                                brightness: 1.0)
 
         let vX = point.x - centerX
         let vY = point.y - centerY

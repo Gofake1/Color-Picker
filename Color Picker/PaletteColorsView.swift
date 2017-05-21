@@ -83,8 +83,10 @@ class PaletteColorsView: NSView {
     // MARK: - Mouse
 
     override func mouseDown(with event: NSEvent) {
-        guard let index = selectedIndex else { return }
-        guard sortedColors.count >= index else { return }
+        guard let index = selectedIndex,
+            sortedColors.count != 0,
+            sortedColors.count >= index
+            else { return }
         delegate?.selectColor(sortedColors[index])
     }
 
