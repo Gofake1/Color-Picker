@@ -15,6 +15,7 @@ class MainMenuController: NSObject {
     weak var colorPicker: NSWindowController?
     weak var palettes: NSWindowController?
     weak var palettesCollection: PaletteCollection!
+    weak var preferences: NSWindowController?
 
     override func awakeFromNib() {
         NSPasteboard.general().declareTypes([NSPasteboardTypeString], owner: self)
@@ -44,7 +45,7 @@ class MainMenuController: NSObject {
     }
 
     @IBAction func showPreferences(_ sender: NSMenuItem) {
-
+        preferences?.showWindow(nil)
     }
 
     func addColorToPalette(_ sender: NSMenuItem) {

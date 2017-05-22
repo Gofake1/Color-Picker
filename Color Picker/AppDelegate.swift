@@ -27,6 +27,17 @@ class AppDelegate: NSObject {
         palettes?.window?.isExcludedFromWindowsMenu = true
         return palettes
     }()
+
+    fileprivate lazy var preferences: NSWindowController? = {
+        let preferences = NSStoryboard(name: "Preferences", bundle: nil).instantiateInitialController()
+            as? NSWindowController
+        preferences?.window?.isExcludedFromWindowsMenu = true
+        return preferences
+    }()
+
+    @IBAction func resetPalettes(_ sender: NSButton) {
+        paletteCollection.restoreDefaults()
+    }
 }
 
 extension AppDelegate: NSApplicationDelegate {
@@ -41,6 +52,7 @@ extension AppDelegate: NSApplicationDelegate {
         mainMenuController.colorPicker        = colorPicker
         mainMenuController.palettes           = palettes
         mainMenuController.palettesCollection = paletteCollection
+        mainMenuController.preferences        = preferences
         (palettes?.contentViewController as! PaletteViewController).paletteCollection = paletteCollection
 
         colorPicker?.showWindow(nil)

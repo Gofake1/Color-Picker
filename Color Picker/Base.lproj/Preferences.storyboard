@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G8c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="Hh4-8Z-bYp">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="Kyy-kW-0Vy">
+            <objects>
+                <windowController id="Hh4-8Z-bYp" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="DpL-oe-ukv">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <rect key="contentRect" x="294" y="372" width="400" height="300"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1200"/>
+                    </window>
+                    <connections>
+                        <segue destination="san-kV-6IZ" kind="relationship" relationship="window.shadowedContentViewController" id="Hx4-kH-d9R"/>
+                    </connections>
+                </windowController>
+                <customObject id="hub-KQ-PQv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="-91"/>
+        </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="d4B-xM-2yf">
+            <objects>
+                <tabViewController tabStyle="toolbar" id="san-kV-6IZ" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem image="NSPreferencesGeneral" id="Jpq-W7-vAJ"/>
+                    </tabViewItems>
+                    <tabView key="tabView" misplaced="YES" type="noTabsNoBorder" id="8x7-B8-RO5">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                    </tabView>
+                    <connections>
+                        <segue destination="jDH-Sn-CNl" kind="relationship" relationship="tabItems" id="7Dp-U8-TKL"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="yVy-Kc-ZIy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="342"/>
+        </scene>
+        <!--General-->
+        <scene sceneID="vqh-hT-nbe">
+            <objects>
+                <viewController title="General" id="jDH-Sn-CNl" sceneMemberID="viewController">
+                    <view key="view" id="zSe-au-hgV">
+                        <rect key="frame" x="0.0" y="0.0" width="346" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EmP-pE-FCf">
+                                <rect key="frame" x="110" y="252" width="127" height="32"/>
+                                <buttonCell key="cell" type="push" title="Reset Palettes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yyb-MS-Qcv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="resetPalettes:" target="jUF-ED-me1" id="6pU-z4-Hqq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="EmP-pE-FCf" firstAttribute="top" secondItem="zSe-au-hgV" secondAttribute="top" constant="20" id="8Xm-1d-Wqn"/>
+                            <constraint firstItem="EmP-pE-FCf" firstAttribute="centerX" secondItem="zSe-au-hgV" secondAttribute="centerX" id="CPk-6v-ZLm"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="jUF-ED-me1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="754"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
+    </resources>
+</document>

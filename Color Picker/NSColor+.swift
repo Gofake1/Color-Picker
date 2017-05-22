@@ -45,7 +45,10 @@ extension NSColor {
         if hexString.hasPrefix("#") {
             hexString.remove(at: hexString.startIndex)
         }
-        guard let hexInt = Int(hexString, radix: 16) else { self.init(white: 1, alpha: 1); return }
+        guard let hexInt = Int(hexString, radix: 16) else {
+            self.init(red: 1, green: 1, blue: 1, alpha: 1)
+            return
+        }
         self.init(red:   CGFloat((hexInt >> 16) & 0xFF) / 255.0,
                   green: CGFloat((hexInt >> 8) & 0xFF) / 255.0,
                   blue:  CGFloat((hexInt >> 0) & 0xFF) / 255.0,

@@ -12,7 +12,7 @@ class Palette: NSObject, NSCoding {
 
     dynamic var name: String
     dynamic var colors: Set<NSColor>
-    private let id: Int
+    let id: Int
 
     init(id: Int? = nil, name: String = "New Palette", colors: Set<NSColor> = Set()) {
         self.name = name
