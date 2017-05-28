@@ -8,13 +8,12 @@
 
 import Cocoa
 
-/// Publicly accessible interface of `ColorPickerViewController`; any class can use this class to indirectly
+/// Public interface of `ColorPickerViewController`; any class can use this class to indirectly
 /// modify `ColorPickerViewController`'s state.
 class ColorController {
 
     static var shared = ColorController()
-    // Used to determine `selectedColor`. Should only be set by `colorPicker`. Other classes should use
-    // `setColor(_:)`.
+    // Should only be set by `colorPicker`'s `NSSlider`. Affects `selectedColor`.
     var brightness: CGFloat = 1.0 {
         didSet {
             selectedColor = NSColor(calibratedHue: masterColor.hueComponent,
@@ -23,6 +22,7 @@ class ColorController {
                                     alpha: 1.0)
         }
     }
+    // Should only be set by `colorPicker`'s `ColorWheelView`. Affects `selectedColor`.
     var masterColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) {
         didSet {
             selectedColor = NSColor(calibratedHue: masterColor.hueComponent,
@@ -31,11 +31,11 @@ class ColorController {
                                     alpha: 1.0)
         }
     }
-    // Should only be set br `colorPicker`'s `NSTextfield`
     var selectedColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     // Injected by ColorPickerViewController
     weak var colorPicker: ColorPickerViewController!
 
+    /// - postcondition: Mutates `colorPicker`
     func setColor(_ color: NSColor) {
         selectedColor = color
         brightness = color.scaledBrightness

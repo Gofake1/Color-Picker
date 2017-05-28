@@ -37,11 +37,9 @@ class ColorPickerViewController: NSViewController {
         colorWheelView.setColor(ColorController.shared.selectedColor, crosshairShouldChange)
     }
 
-    fileprivate func updateLabel(labelTextShouldChange: Bool = true) {
+    fileprivate func updateLabel() {
         colorLabel.backgroundColor = ColorController.shared.selectedColor
-        if labelTextShouldChange {
-            colorLabel.stringValue = "#\(ColorController.shared.selectedColor.rgbHexString)"
-        }
+        colorLabel.stringValue = "#\(ColorController.shared.selectedColor.rgbHexString)"
         if ColorController.shared.selectedColor.scaledBrightness < 0.5 {
             colorLabel.textColor = NSColor.white
         } else {
@@ -98,10 +96,7 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
     override func controlTextDidEndEditing(_ obj: Notification) {
         let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
         let color = NSColor(hexString: string)
-        ColorController.shared.selectedColor = color
-        updateColorWheel()
-        updateLabel(labelTextShouldChange: false)
-        updateSlider()
+        ColorController.shared.setColor(color)
 
         view.window?.makeFirstResponder(view)
     }
