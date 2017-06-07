@@ -13,14 +13,14 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var label: NSTextField!
     @IBOutlet weak var paletteColorsView: PaletteColorsView!
 
-    override var nibName: String? {
-        return "PaletteCollectionViewItem"
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "PaletteCollectionViewItem")
     }
 
     override var representedObject: Any? {
         didSet {
             if let palette = representedObject as? Palette {
-                paletteColorsView.bind(#keyPath(PaletteColorsView.colors),
+                paletteColorsView.bind(NSBindingName(rawValue: #keyPath(PaletteColorsView.colors)),
                                        to: palette,
                                        withKeyPath: #keyPath(Palette.colors),
                                        options: nil)

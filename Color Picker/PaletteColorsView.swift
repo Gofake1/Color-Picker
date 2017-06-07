@@ -14,7 +14,7 @@ protocol PaletteColorsViewDelegate: class {
 
 class PaletteColorsView: NSView {
 
-    var colors: Set<NSColor>! {
+    @objc var colors: Set<NSColor>! {
         didSet {
             sortedColors = colors.sorted(by: >)
         }
@@ -34,7 +34,7 @@ class PaletteColorsView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let context = NSGraphicsContext.current()?.cgContext, let colors = colors else { return }
+        guard let context = NSGraphicsContext.current?.cgContext, let colors = colors else { return }
         context.setLineWidth(1)
         context.setStrokeColor(CGColor(gray: 0.6, alpha: 0.8))
         if colors.count == 0 {

@@ -10,8 +10,8 @@ import Cocoa
 
 class Palette: NSObject, NSCoding {
 
-    dynamic var name: String
-    dynamic var colors: Set<NSColor>
+    @objc var name: String
+    @objc var colors: Set<NSColor>
     let id: Int
 
     init(id: Int? = nil, name: String = "New Palette", colors: Set<NSColor> = Set()) {

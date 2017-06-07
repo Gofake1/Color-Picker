@@ -18,22 +18,22 @@ class MainMenuController: NSObject {
     weak var preferences: NSWindowController?
 
     override func awakeFromNib() {
-        NSPasteboard.general().declareTypes([NSPasteboardTypeString], owner: self)
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: self)
     }
 
     @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbHexString,
-                                         forType: NSPasteboardTypeString)
+        NSPasteboard.general.setString(ColorController.shared.selectedColor.rgbHexString,
+                                         forType: NSPasteboard.PasteboardType.string)
     }
 
     @IBAction func copyCurrentColorAsRGBDecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbDecString,
-                                         forType: NSPasteboardTypeString)
+        NSPasteboard.general.setString(ColorController.shared.selectedColor.rgbDecString,
+                                         forType: NSPasteboard.PasteboardType.string)
     }
 
     @IBAction func copyCurrentColorAsCYMK(_ sender: NSMenuItem) {
-        NSPasteboard.general().setString(ColorController.shared.selectedColor.cmykString,
-                                         forType: NSPasteboardTypeString)
+        NSPasteboard.general.setString(ColorController.shared.selectedColor.cmykString,
+                                         forType: NSPasteboard.PasteboardType.string)
     }
 
     @IBAction func showColorPicker(_ sender: NSMenuItem) {
@@ -48,7 +48,7 @@ class MainMenuController: NSObject {
         preferences?.showWindow(nil)
     }
 
-    func addColorToPalette(_ sender: NSMenuItem) {
+    @objc func addColorToPalette(_ sender: NSMenuItem) {
         guard let palette = sender.representedObject as? Palette else { fatalError() }
         palette.addColor(ColorController.shared.selectedColor)
     }

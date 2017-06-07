@@ -12,6 +12,6 @@ Color Picker is meant to address those issues. It is a standalone app, so it is 
 
 ## Build
 
-Built on Xcode 8, macOS 10.12.
+Tested on Xcode 9 and macOS 10.13.
 
 *This project is available under the MIT License.*
