@@ -33,11 +33,11 @@ class ColorPickerViewController: NSViewController {
         updateLabel()
     }
 
-    fileprivate func updateColorWheel(crosshairShouldChange: Bool = true) {
+    private func updateColorWheel(crosshairShouldChange: Bool = true) {
         colorWheelView.setColor(ColorController.shared.selectedColor, crosshairShouldChange)
     }
 
-    fileprivate func updateLabel() {
+    private func updateLabel() {
         colorLabel.backgroundColor = ColorController.shared.selectedColor
         colorLabel.stringValue = "#\(ColorController.shared.selectedColor.rgbHexString)"
         if ColorController.shared.selectedColor.scaledBrightness < 0.5 {
@@ -47,7 +47,7 @@ class ColorPickerViewController: NSViewController {
         }
     }
 
-    fileprivate func updateSlider() {
+    private func updateSlider() {
         guard let sliderCell = brightnessSlider.cell as? GradientSliderCell else { fatalError() }
         sliderCell.colorA = ColorController.shared.masterColor
         brightnessSlider.drawCell(sliderCell)

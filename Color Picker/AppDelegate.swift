@@ -14,21 +14,21 @@ class AppDelegate: NSObject {
     @IBOutlet weak var mainMenuController: MainMenuController!
     var paletteCollection: PaletteCollection!
 
-    fileprivate var colorPicker: NSWindowController? = {
+    private var colorPicker: NSWindowController? = {
         let colorPicker = NSStoryboard(name: NSStoryboard.Name(rawValue: "ColorPicker"), bundle: nil).instantiateInitialController()
             as? NSWindowController
         colorPicker?.window?.isExcludedFromWindowsMenu = true
         return colorPicker
     }()
 
-    fileprivate lazy var palettes: NSWindowController? = {
+    private lazy var palettes: NSWindowController? = {
         let palettes = NSStoryboard(name: NSStoryboard.Name(rawValue: "Palettes"), bundle: nil).instantiateInitialController()
             as? NSWindowController
         palettes?.window?.isExcludedFromWindowsMenu = true
         return palettes
     }()
 
-    fileprivate lazy var preferences: NSWindowController? = {
+    private lazy var preferences: NSWindowController? = {
         let preferences = NSStoryboard(name: NSStoryboard.Name(rawValue: "Preferences"), bundle: nil).instantiateInitialController()
             as? NSWindowController
         preferences?.window?.isExcludedFromWindowsMenu = true

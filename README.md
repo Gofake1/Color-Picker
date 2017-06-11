@@ -1,4 +1,4 @@
-# [Color Picker](https://gofake1.net/projects/color_picker.html)
+# [Color Picker](https://gofake1.net/projects/color_picker.html) <img src="https://gofake1.net/images/color_picker_icon.png" align="right" height="50">
 
 ![Color Picker screenshot](https://gofake1.net/images/color_picker_1.jpg)
 ![Palettes screenshot](https://gofake1.net/images/color_picker_2.jpg)
@@ -11,7 +11,6 @@ The macOS color panel has some annoying limitations:
 Color Picker is meant to address those issues. It is a standalone app, so it is easily accessible and always visible. Users can save their favorite colors to "Palettes".
 
 ## Build
-
 Tested on Xcode 9 and macOS 10.13.
 
 *This project is available under the MIT License.*
