@@ -22,7 +22,7 @@ fileprivate let defaultPalettes = [
 
 class PaletteCollection: NSObject, NSCoding {
 
-    @objc var palettes: [Palette]
+    @objc dynamic var palettes: [Palette]
 
     override init() {
         palettes = defaultPalettes

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16G8c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,8 +34,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="editable" keyPath="self.selected" id="oqd-va-b5q"/>
                                     <binding destination="-2" name="value" keyPath="representedObject.name" id="kL9-sD-FIr"/>
+                                    <binding destination="-2" name="editable" keyPath="self.selected" id="oqd-va-b5q"/>
                                 </connections>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="3jI-JX-TsR" customClass="PaletteColorsView" customModule="Color_Picker" customModuleProvider="target">
@@ -70,6 +70,20 @@
                 <constraint firstAttribute="trailing" secondItem="NxU-bX-v4s" secondAttribute="trailing" id="HiL-lI-ggQ"/>
                 <constraint firstAttribute="bottom" secondItem="NxU-bX-v4s" secondAttribute="bottom" id="dYd-S0-Cbe"/>
             </constraints>
+            <connections>
+                <outlet property="menu" destination="JOA-q6-t51" id="cUQ-oB-LpI"/>
+            </connections>
         </customView>
+        <menu id="JOA-q6-t51">
+            <items>
+                <menuItem title="Delete" id="QqS-by-wIS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="U0t-cZ-UHd"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="140" y="291"/>
+        </menu>
     </objects>
 </document>

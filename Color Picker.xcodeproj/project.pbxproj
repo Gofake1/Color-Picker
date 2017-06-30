@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A1248D61F0631EB000AD7A8 /* MyCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1248D51F0631EB000AD7A8 /* MyCollectionView.swift */; };
 		4A62A8061EBE9D47003A02D2 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62A8051EBE9D47003A02D2 /* Palette.swift */; };
 		4A62A8091EBEB4A4003A02D2 /* ColorPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A62A80B1EBEB4A4003A02D2 /* ColorPicker.storyboard */; };
 		4A62A80E1EBEBA07003A02D2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A62A8101EBEBA07003A02D2 /* MainMenu.xib */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A1248D51F0631EB000AD7A8 /* MyCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionView.swift; sourceTree = "<group>"; };
 		4A62A8051EBE9D47003A02D2 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		4A62A80A1EBEB4A4003A02D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ColorPicker.storyboard; sourceTree = "<group>"; };
 		4A62A80F1EBEBA07003A02D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				4A66F1961EBC274100D81A4A /* ColorWheelView.swift */,
 				4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */,
 				4AC3DDC01EC2B87D00E08B8D /* MainMenuController.swift */,
+				4A1248D51F0631EB000AD7A8 /* MyCollectionView.swift */,
 				4A720F7B1EBD7E0000205678 /* NSColor+.swift */,
 				4A62A8051EBE9D47003A02D2 /* Palette.swift */,
 				4AC3DDBD1EC185E600E08B8D /* PaletteCollection.swift */,
@@ -202,6 +205,7 @@
 				4AC3DDC11EC2B87D00E08B8D /* MainMenuController.swift in Sources */,
 				4AC3DDBE1EC185E600E08B8D /* PaletteCollection.swift in Sources */,
 				4A720F7C1EBD7E0000205678 /* NSColor+.swift in Sources */,
+				4A1248D61F0631EB000AD7A8 /* MyCollectionView.swift in Sources */,
 				4A66F1871EBC24E200D81A4A /* AppDelegate.swift in Sources */,
 				4A62A8181EBED0EB003A02D2 /* PaletteColorsView.swift in Sources */,
 				4A62A8061EBE9D47003A02D2 /* Palette.swift in Sources */,

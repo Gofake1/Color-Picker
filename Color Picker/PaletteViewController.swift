@@ -11,13 +11,14 @@ import Cocoa
 class PaletteViewController: NSViewController {
 
     @IBOutlet weak var collectionController: NSArrayController!
-    @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var collectionView: MyCollectionView!
     // Injected by AppDelegate
     @objc dynamic weak var paletteCollection: PaletteCollection!
     /// Cached index paths for dragged items in the current drag session
     private var draggedIndexPaths = Set<IndexPath>()
 
     override func viewDidLoad() {
+        collectionView.collectionController = collectionController
         collectionView.register(PaletteCollectionViewItem.self,
                                 forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "palette"))
         collectionView.registerForDraggedTypes(

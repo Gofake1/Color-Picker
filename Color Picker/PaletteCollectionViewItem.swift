@@ -38,6 +38,11 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
     override func awakeFromNib() {
         paletteColorsView.delegate = self
     }
+
+    @IBAction func delete(_ sender: NSMenuItem) {
+        guard let collectionView = collectionView as? MyCollectionView else { fatalError() }
+        collectionView.delete(self)
+    }
 }
 
 extension PaletteCollectionViewItem: PaletteColorsViewDelegate {
