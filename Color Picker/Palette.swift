@@ -11,7 +11,7 @@ import Cocoa
 class Palette: NSObject, NSCoding {
 
     @objc var name: String
-    @objc var colors: Set<NSColor>
+    @objc dynamic var colors: Set<NSColor>
     let id: Int
 
     init(id: Int? = nil, name: String = "New Palette", colors: Set<NSColor> = Set()) {

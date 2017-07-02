@@ -35,18 +35,47 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
         }
     }
 
+    @objc dynamic var isEditing = false
+
     override func awakeFromNib() {
         paletteColorsView.delegate = self
+    }
+
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard let action = menuItem.action else { return false }
+        switch action {
+        case #selector(edit(_:)):
+            return !isEditing
+        default:
+            return true
+        }
+    }
+
+    @IBAction func edit(_ sender: NSMenuItem) {
+        isEditing = true
+        paletteColorsView.isEditing = true
     }
 
     @IBAction func delete(_ sender: NSMenuItem) {
         guard let collectionView = collectionView as? MyCollectionView else { fatalError() }
         collectionView.delete(self)
     }
+
+    @IBAction func finishEditing(_ sender: NSButton) {
+        isEditing = false
+        paletteColorsView.isEditing = false
+    }
 }
 
 extension PaletteCollectionViewItem: PaletteColorsViewDelegate {
+
     func selectColor(_ color: NSColor) {
         ColorController.shared.setColor(color)
+    }
+
+    func removeColor(_ color: NSColor) {
+        if let palette = representedObject as? Palette {
+            palette.removeColor(color)
+        }
     }
 }

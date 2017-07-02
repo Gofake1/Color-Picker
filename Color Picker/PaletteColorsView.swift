@@ -10,13 +10,20 @@ import Cocoa
 
 protocol PaletteColorsViewDelegate: class {
     func selectColor(_ color: NSColor)
+    func removeColor(_ color: NSColor)
 }
 
 class PaletteColorsView: NSView {
 
-    @objc var colors: Set<NSColor>! {
+    @objc dynamic var colors: Set<NSColor>! {
         didSet {
             sortedColors = colors.sorted(by: >)
+            needsDisplay = true
+        }
+    }
+    var isEditing = false {
+        didSet {
+            needsDisplay = true
         }
     }
     weak var delegate: PaletteColorsViewDelegate?
@@ -27,23 +34,20 @@ class PaletteColorsView: NSView {
             }
         }
     }
-    private var sortedColors: [NSColor]! {
-        didSet {
-            needsDisplay = true
-        }
-    }
+    private var sortedColors: [NSColor]!
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let context = NSGraphicsContext.current?.cgContext, let colors = colors else { return }
+        guard let context = NSGraphicsContext.current?.cgContext, let colors = sortedColors else { return }
         context.setLineWidth(1)
         context.setStrokeColor(CGColor(gray: 0.6, alpha: 0.8))
+
         if colors.count == 0 {
             for i in 0..<10 {
                 context.stroke(CGRect(x: i*20+1, y: 1, width: 18, height: 18))
             }
         } else if colors.count < 10 {
             var ii = 0
-            for (i, color) in sortedColors.enumerated() {
+            for (i, color) in colors.enumerated() {
                 ii += 1
                 context.setFillColor(color.cgColor)
                 context.fill(CGRect(x: CGFloat(i*20)+0.5, y: 0.5, width: 19, height: 19))
@@ -58,9 +62,19 @@ class PaletteColorsView: NSView {
                 context.fill(CGRect(x: CGFloat(i*20)+0.5, y: 0.5, width: 19, height: 19))
             }
         }
-        if let selectedIndex = selectedIndex {
-            context.setStrokeColor(CGColor(red: 0.1, green: 0.1, blue: 1.0, alpha: 1.0))
-            context.stroke(CGRect(x: selectedIndex*20+1, y: 1, width: 18, height: 18))
+
+        guard let selectedIndex = selectedIndex else { return }
+        context.setStrokeColor(CGColor(red: 0.1, green: 0.1, blue: 1.0, alpha: 1.0))
+        context.stroke(CGRect(x: selectedIndex*20+1, y: 1, width: 18, height: 18))
+
+        if isEditing && selectedIndex < colors.count {
+            context.setStrokeColor(colors[selectedIndex].scaledBrightness > 0.5 ? CGColor.black : CGColor.white)
+            context.setLineWidth(2)
+            context.addLines(between: [CGPoint(x: selectedIndex*20+4, y: 16),
+                                       CGPoint(x: selectedIndex*20+16, y: 4)])
+            context.addLines(between: [CGPoint(x: selectedIndex*20+4, y: 4),
+                                       CGPoint(x: selectedIndex*20+16, y: 16)])
+            context.strokePath()
         }
     }
 
@@ -87,7 +101,11 @@ class PaletteColorsView: NSView {
             sortedColors.count != 0,
             sortedColors.count >= index
             else { return }
-        delegate?.selectColor(sortedColors[index])
+        if isEditing {
+            delegate?.removeColor(sortedColors[index])
+        } else {
+            delegate?.selectColor(sortedColors[index])
+        }
     }
 
     override func mouseExited(with event: NSEvent) {
@@ -99,6 +117,7 @@ class PaletteColorsView: NSView {
     }
 
     override func updateTrackingAreas() {
+        super.updateTrackingAreas()
         for area in trackingAreas {
             removeTrackingArea(area)
         }

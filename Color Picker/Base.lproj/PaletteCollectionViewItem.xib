@@ -26,6 +26,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="216" height="43"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <box boxType="custom" borderWidth="0.0" title="Box" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fk0-wf-ZRR">
+                                <rect key="frame" x="0.0" y="0.0" width="216" height="43"/>
+                                <view key="contentView" id="3sq-Y1-dSc">
+                                    <rect key="frame" x="0.0" y="0.0" width="216" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="fillColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <binding destination="-2" name="transparent" keyPath="self.selected" id="RPK-bJ-Tcn">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofP-Yc-gnU">
                                 <rect key="frame" x="6" y="26" width="204" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Label" usesSingleLineMode="YES" id="2z0-ng-mKv">
@@ -44,9 +59,30 @@
                                     <constraint firstAttribute="height" constant="20" id="bnl-9M-5JA"/>
                                 </constraints>
                             </customView>
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xU3-JW-8rv">
+                                <rect key="frame" x="166" y="25" width="42" height="17"/>
+                                <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UY6-FS-prA">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="finishEditing:" target="-2" id="bpT-9N-Y4R"/>
+                                    <binding destination="-2" name="hidden" keyPath="self.isEditing" id="Bso-uw-zVf">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Fk0-wf-ZRR" secondAttribute="bottom" id="40V-vI-oOx"/>
+                            <constraint firstAttribute="trailing" secondItem="xU3-JW-8rv" secondAttribute="trailing" constant="8" id="Bli-mB-B90"/>
                             <constraint firstAttribute="trailing" secondItem="3jI-JX-TsR" secondAttribute="trailing" constant="8" id="CoX-Bz-En2"/>
+                            <constraint firstItem="xU3-JW-8rv" firstAttribute="top" secondItem="WB6-wN-teY" secondAttribute="top" constant="1" id="HJm-WK-fv5"/>
+                            <constraint firstItem="Fk0-wf-ZRR" firstAttribute="top" secondItem="WB6-wN-teY" secondAttribute="top" id="Hft-dq-TOs"/>
+                            <constraint firstItem="Fk0-wf-ZRR" firstAttribute="leading" secondItem="WB6-wN-teY" secondAttribute="leading" id="MM7-dg-LR4"/>
+                            <constraint firstAttribute="trailing" secondItem="Fk0-wf-ZRR" secondAttribute="trailing" id="Skx-Cm-xOr"/>
                             <constraint firstItem="3jI-JX-TsR" firstAttribute="leading" secondItem="WB6-wN-teY" secondAttribute="leading" constant="8" id="boN-sv-zbs"/>
                             <constraint firstItem="ofP-Yc-gnU" firstAttribute="top" secondItem="WB6-wN-teY" secondAttribute="top" id="jUY-4t-lOU"/>
                             <constraint firstItem="3jI-JX-TsR" firstAttribute="top" secondItem="ofP-Yc-gnU" secondAttribute="bottom" constant="2" id="rXt-5S-tEb"/>
@@ -54,9 +90,9 @@
                             <constraint firstAttribute="trailing" secondItem="ofP-Yc-gnU" secondAttribute="trailing" constant="8" id="xtF-Pw-p0C"/>
                         </constraints>
                     </view>
-                    <color key="fillColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                    <color key="fillColor" red="1" green="0.92676284009999998" blue="0.62276882469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <binding destination="-2" name="transparent" keyPath="self.selected" id="blh-VF-yYA">
+                        <binding destination="-2" name="transparent" keyPath="self.isEditing" id="dGk-kt-lBR">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
@@ -73,9 +109,16 @@
             <connections>
                 <outlet property="menu" destination="JOA-q6-t51" id="cUQ-oB-LpI"/>
             </connections>
+            <point key="canvasLocation" x="140" y="168.5"/>
         </customView>
         <menu id="JOA-q6-t51">
             <items>
+                <menuItem title="Edit..." id="FvJ-EE-b2I">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="edit:" target="-2" id="jaR-YO-yKP"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Delete" id="QqS-by-wIS">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
