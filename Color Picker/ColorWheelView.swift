@@ -113,36 +113,48 @@ class ColorWheelView: NSView {
         return CGPoint(x: x, y: y)
     }
 
-    /// - postcondition: Calls `delegate`
-    private func setColor(at point: CGPoint) {
+    /// - returns: Clamped point and boolean indicating if the point was clamped
+    private func clamped(_ point: CGPoint) -> (CGPoint, Bool) {
         let centerX = frame.width/2
         let centerY = frame.height/2
-        selectedColor = NSColor(coord: (Int(point.x), Int(point.y)),
-                                center: (Int(centerX), Int(centerY)),
-                                brightness: 1.0)
-
         let vX = point.x - centerX
         let vY = point.y - centerY
         let distanceFromCenter = sqrt((vX*vX) + (vY*vY))
         let radius = frame.width/2
         if distanceFromCenter > radius {
-            crosshairLocation = CGPoint(x: centerX + vX/distanceFromCenter * radius,
-                                        y: centerY + vY/distanceFromCenter * radius)
+            return (CGPoint(x: centerX + vX/distanceFromCenter * radius,
+                            y: centerY + vY/distanceFromCenter * radius), true)
         } else {
-            crosshairLocation = point
+            return (point, false)
         }
+    }
 
-        needsDisplay = true
+    /// - postcondition: Calls `delegate`
+    private func setColor(at point: CGPoint) {
+        selectedColor = NSColor(coord: (Int(point.x), Int(point.y)),
+                                center: (Int(frame.width/2), Int(frame.height/2)),
+                                brightness: 1.0)
         delegate?.colorDidChange(selectedColor)
     }
 
     // MARK: - Mouse
 
+    /// - postcondition: May call `NSWindow.makeFirstResponder`
     override func mouseDown(with event: NSEvent) {
-        setColor(at: convert(event.locationInWindow, from: nil))
+        let (clampedPoint, wasClamped) = clamped(convert(event.locationInWindow, from: nil))
+        if wasClamped {
+            window?.makeFirstResponder(window?.contentView)
+        } else {
+            setColor(at: clampedPoint)
+            crosshairLocation = clampedPoint
+            needsDisplay = true
+        }
     }
 
     override func mouseDragged(with event: NSEvent) {
-        setColor(at: convert(event.locationInWindow, from: nil))
+        let (clampedPoint, _) = clamped(convert(event.locationInWindow, from: nil))
+        setColor(at: clampedPoint)
+        crosshairLocation = clampedPoint
+        needsDisplay = true
     }
 }

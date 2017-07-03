@@ -99,7 +99,7 @@ class PaletteColorsView: NSView {
     override func mouseDown(with event: NSEvent) {
         guard let index = selectedIndex,
             sortedColors.count != 0,
-            sortedColors.count >= index
+            sortedColors.count > index
             else { return }
         if isEditing {
             delegate?.removeColor(sortedColors[index])

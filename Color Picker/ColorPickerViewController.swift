@@ -19,6 +19,14 @@ class ColorPickerViewController: NSViewController {
         colorWheelView.delegate = self
     }
 
+    /// - postcondition: Mutates `colorController.selectedColor`
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
+        let color = NSColor(hexString: string)
+        ColorController.shared.setColor(color)
+        view.window?.makeFirstResponder(view)
+    }
+
     /// Should only be called by `colorController`
     func updateSelectedColor() {
         updateColorWheel()
@@ -29,17 +37,17 @@ class ColorPickerViewController: NSViewController {
     /// - postcondition: Mutates `ColorController.brightness`
     @IBAction func setBrightness(_ sender: NSSlider) {
         ColorController.shared.brightness = CGFloat((sender.maxValue-sender.doubleValue) / sender.maxValue)
-        updateColorWheel(crosshairShouldChange: false)
+        updateColorWheel(redrawCrosshair: false)
         updateLabel()
     }
 
-    private func updateColorWheel(crosshairShouldChange: Bool = true) {
-        colorWheelView.setColor(ColorController.shared.selectedColor, crosshairShouldChange)
+    private func updateColorWheel(redrawCrosshair: Bool = true) {
+        colorWheelView.setColor(ColorController.shared.selectedColor, redrawCrosshair)
     }
 
     private func updateLabel() {
         colorLabel.backgroundColor = ColorController.shared.selectedColor
-        colorLabel.stringValue = "#\(ColorController.shared.selectedColor.rgbHexString)"
+        colorLabel.stringValue = "#"+ColorController.shared.selectedColor.rgbHexString
         if ColorController.shared.selectedColor.scaledBrightness < 0.5 {
             colorLabel.textColor = NSColor.white
         } else {
@@ -90,15 +98,6 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
             return validateControlString(string)
         }
         return false
-    }
-
-    /// - postcondition: Mutates `colorController.selectedColor`
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
-        let color = NSColor(hexString: string)
-        ColorController.shared.setColor(color)
-
-        view.window?.makeFirstResponder(view)
     }
 }
 
