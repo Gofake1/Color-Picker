@@ -4,7 +4,6 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Window Controller-->
@@ -33,63 +32,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="188" height="243"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nI-Ui-Tr3">
-                                <rect key="frame" x="0.0" y="0.0" width="188" height="243"/>
-                                <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="RoW-gq-wFb" customClass="ColorWheelView" customModule="Color_Picker" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="63" width="172" height="172"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="172" id="7Ob-0W-ILS"/>
-                                            <constraint firstAttribute="width" constant="172" id="f8G-f8-REe"/>
-                                        </constraints>
-                                    </customView>
-                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kEI-3s-8V1">
-                                        <rect key="frame" x="6" y="31" width="176" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="172" id="tDX-ls-9eF"/>
-                                        </constraints>
-                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" numberOfTickMarks="1" sliderType="linear" id="EKk-Po-jxX" customClass="GradientSliderCell" customModule="Color_Picker" customModuleProvider="target"/>
-                                        <connections>
-                                            <action selector="setBrightness:" target="3Pz-yC-UHG" id="vat-0S-3Ne"/>
-                                        </connections>
-                                    </slider>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-XT-mBw">
-                                        <rect key="frame" x="8" y="8" width="172" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="#FFFFFF" drawsBackground="YES" usesSingleLineMode="YES" id="ee9-XM-FFS">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <allowedInputSourceLocales>
-                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                            </allowedInputSourceLocales>
-                                        </textFieldCell>
-                                        <connections>
-                                            <outlet property="delegate" destination="3Pz-yC-UHG" id="C1F-Ht-MgT"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <edgeInsets key="edgeInsets" left="8" right="8" top="8" bottom="8"/>
-                                <constraints>
-                                    <constraint firstItem="dR5-XT-mBw" firstAttribute="centerX" secondItem="4nI-Ui-Tr3" secondAttribute="centerX" id="Ywd-kn-tog"/>
-                                </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RoW-gq-wFb" customClass="ColorWheelView" customModule="Color_Picker" customModuleProvider="target">
+                                <rect key="frame" x="8" y="63" width="172" height="172"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </customView>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kEI-3s-8V1">
+                                <rect key="frame" x="6" y="31" width="176" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" numberOfTickMarks="1" sliderType="linear" id="EKk-Po-jxX" customClass="GradientSliderCell" customModule="Color_Picker" customModuleProvider="target"/>
+                                <connections>
+                                    <action selector="setBrightness:" target="3Pz-yC-UHG" id="vat-0S-3Ne"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-XT-mBw">
+                                <rect key="frame" x="8" y="8" width="172" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="#FFFFFF" drawsBackground="YES" usesSingleLineMode="YES" id="ee9-XM-FFS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="setColor:" target="3Pz-yC-UHG" id="3ST-l6-dvn"/>
+                                    <outlet property="delegate" destination="3Pz-yC-UHG" id="C1F-Ht-MgT"/>
+                                </connections>
+                            </textField>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="4nI-Ui-Tr3" secondAttribute="trailing" id="RKh-4x-uIR"/>
-                            <constraint firstAttribute="bottom" secondItem="4nI-Ui-Tr3" secondAttribute="bottom" id="cgj-h8-nGM"/>
-                            <constraint firstItem="4nI-Ui-Tr3" firstAttribute="leading" secondItem="xHY-HW-lur" secondAttribute="leading" id="tUF-q3-l4h"/>
-                            <constraint firstItem="4nI-Ui-Tr3" firstAttribute="top" secondItem="xHY-HW-lur" secondAttribute="top" id="y9N-3v-WfE"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="brightnessSlider" destination="kEI-3s-8V1" id="sIm-Vq-9Xz"/>
@@ -99,7 +70,7 @@
                 </viewController>
                 <customObject id="rRV-8g-2ce" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-92" y="391"/>
+            <point key="canvasLocation" x="-92" y="426.5"/>
         </scene>
     </scenes>
 </document>
