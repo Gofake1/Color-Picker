@@ -10,10 +10,18 @@ import Cocoa
 
 protocol PaletteColorsViewDelegate: class {
     func selectColor(_ color: NSColor)
+    func addColor(_ color: NSColor)
     func removeColor(_ color: NSColor)
 }
 
+/// Allows colors to be dragged in and out
 class PaletteColorsView: NSView {
+
+    enum State {
+        case isDraggingOut
+        case isEditing
+        case normal
+    }
 
     @objc dynamic var colors: Set<NSColor>! {
         didSet {
@@ -21,12 +29,18 @@ class PaletteColorsView: NSView {
             needsDisplay = true
         }
     }
-    var isEditing = false {
+    weak var delegate: PaletteColorsViewDelegate?
+    var state = State.normal {
         didSet {
-            needsDisplay = true
+            switch state {
+            case .isEditing:
+                needsDisplay = true
+            default:
+                break
+            }
         }
     }
-    weak var delegate: PaletteColorsViewDelegate?
+    private var draggedOutColor: NSColor?
     private var selectedIndex: Int? {
         didSet {
             if oldValue != selectedIndex {
@@ -35,6 +49,10 @@ class PaletteColorsView: NSView {
         }
     }
     private var sortedColors: [NSColor]!
+
+    override func awakeFromNib() {
+        registerForDraggedTypes([.color])
+    }
 
     override func draw(_ dirtyRect: NSRect) {
         guard let context = NSGraphicsContext.current?.cgContext, let colors = sortedColors else { return }
@@ -67,7 +85,8 @@ class PaletteColorsView: NSView {
         context.setStrokeColor(CGColor(red: 0.1, green: 0.1, blue: 1.0, alpha: 1.0))
         context.stroke(CGRect(x: selectedIndex*20+1, y: 1, width: 18, height: 18))
 
-        if isEditing && selectedIndex < colors.count {
+        // Draw 'X' on selected color swatch if in editing mode
+        if state == .isEditing && selectedIndex < colors.count {
             context.setStrokeColor(colors[selectedIndex].scaledBrightness > 0.5 ? CGColor.black : CGColor.white)
             context.setLineWidth(2)
             context.addLines(between: [CGPoint(x: selectedIndex*20+4, y: 16),
@@ -79,6 +98,7 @@ class PaletteColorsView: NSView {
     }
 
     private func index(for point: CGPoint) -> Int? {
+        guard bounds.contains(point) else { return nil }
         switch point.x {
         case 0..<20:    return 0
         case 20..<40:   return 1
@@ -94,16 +114,61 @@ class PaletteColorsView: NSView {
         }
     }
 
+    // MARK: - NSDraggingDestination
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        guard state == .normal else { return [] }
+        // Ignore drags from self
+        if let paletteColorsView = sender.draggingSource() as? PaletteColorsView,
+            paletteColorsView == self {
+            return []
+        }
+        return .copy
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        let pasteboard = sender.draggingPasteboard()
+        guard let colors = pasteboard.readObjects(forClasses: [NSColor.self], options: nil) as? [NSColor],
+            colors.count > 0
+            else { return false }
+        delegate?.addColor(colors[0])
+        return true
+    }
+
     // MARK: - Mouse
 
-    override func mouseDown(with event: NSEvent) {
+    override func mouseDragged(with event: NSEvent) {
+        guard state == .normal,
+            let index = selectedIndex,
+            sortedColors.count != 0,
+            sortedColors.count > index
+            else { return }
+        state = .isDraggingOut
+        draggedOutColor = sortedColors[index]
+        let pasteboardItem = NSPasteboardItem()
+        pasteboardItem.setDataProvider(self, forTypes: [.color])
+        let draggingImage = NSImage(size: NSSize(width: 18, height: 18))
+        draggingImage.lockFocus()
+        sortedColors[index].drawSwatch(in: NSRect(x: 0, y: 0, width: 18, height: 18))
+        draggingImage.unlockFocus()
+        let dragPoint = convert(event.locationInWindow, from: nil)
+        let draggingItem = NSDraggingItem(pasteboardWriter: pasteboardItem)
+        draggingItem.setDraggingFrame(NSRect(x: dragPoint.x-11, y: dragPoint.y-6, width: 18, height: 18),
+                                      contents: draggingImage)
+        beginDraggingSession(with: [draggingItem], event: event, source: self)
+    }
+
+    override func mouseUp(with event: NSEvent) {
         guard let index = selectedIndex,
             sortedColors.count != 0,
             sortedColors.count > index
             else { return }
-        if isEditing {
+        switch state {
+        case .isDraggingOut:
+            return
+        case .isEditing:
             delegate?.removeColor(sortedColors[index])
-        } else {
+        case .normal:
             delegate?.selectColor(sortedColors[index])
         }
     }
@@ -125,5 +190,32 @@ class PaletteColorsView: NSView {
                                        options:  [.activeAlways, .mouseEnteredAndExited, .mouseMoved],
                                        owner:    self,
                                        userInfo: nil))
+    }
+}
+
+extension PaletteColorsView: NSDraggingSource {
+    func draggingSession(_ session: NSDraggingSession,
+                         sourceOperationMaskFor context: NSDraggingContext)
+        -> NSDragOperation {
+        return .generic
+    }
+
+    func draggingSession(_ session: NSDraggingSession,
+                         endedAt screenPoint: NSPoint,
+                         operation: NSDragOperation) {
+        state = .normal
+        draggedOutColor = nil
+    }
+}
+
+extension PaletteColorsView: NSPasteboardItemDataProvider {
+    func pasteboard(_ pasteboard: NSPasteboard?,
+                    item: NSPasteboardItem,
+                    provideDataForType type: NSPasteboard.PasteboardType) {
+        guard let pasteboard = pasteboard,
+            let color = draggedOutColor,
+            type == .color
+            else { return }
+        color.write(to: pasteboard)
     }
 }

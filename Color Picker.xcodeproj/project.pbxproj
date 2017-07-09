@@ -21,6 +21,7 @@
 		4A66F1971EBC274100D81A4A /* ColorWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F1961EBC274100D81A4A /* ColorWheelView.swift */; };
 		4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */; };
 		4A6A7EF01F09D3E60048A92E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A7EEF1F09D3E60048A92E /* ColorPickerView.swift */; };
+		4A6E05461F0F77D300A3C3AA /* ColorDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6E05451F0F77D300A3C3AA /* ColorDragView.swift */; };
 		4A720F7C1EBD7E0000205678 /* NSColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A720F7B1EBD7E0000205678 /* NSColor+.swift */; };
 		4A720F811EBE8B8000205678 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A720F831EBE8B8000205678 /* Preferences.storyboard */; };
 		4A720F841EBE8B8800205678 /* Palettes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A720F861EBE8B8800205678 /* Palettes.storyboard */; };
@@ -48,6 +49,7 @@
 		4A66F1961EBC274100D81A4A /* ColorWheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWheelView.swift; sourceTree = "<group>"; };
 		4A66F19A1EBC6F0900D81A4A /* GradientSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSliderCell.swift; sourceTree = "<group>"; };
 		4A6A7EEF1F09D3E60048A92E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		4A6E05451F0F77D300A3C3AA /* ColorDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDragView.swift; sourceTree = "<group>"; };
 		4A720F7B1EBD7E0000205678 /* NSColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+.swift"; sourceTree = "<group>"; };
 		4A720F821EBE8B8000205678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
 		4A720F851EBE8B8800205678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Palettes.storyboard; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				4A62A81B1EBED0FB003A02D2 /* PaletteCollectionViewItem.xib */,
 				4A66F1861EBC24E200D81A4A /* AppDelegate.swift */,
 				4AC3DDCA1ECA418200E08B8D /* ColorController.swift */,
+				4A6E05451F0F77D300A3C3AA /* ColorDragView.swift */,
 				4A6A7EEF1F09D3E60048A92E /* ColorPickerView.swift */,
 				4A66F1881EBC24E200D81A4A /* ColorPickerViewController.swift */,
 				4A66F1961EBC274100D81A4A /* ColorWheelView.swift */,
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A6E05461F0F77D300A3C3AA /* ColorDragView.swift in Sources */,
 				4A66F19B1EBC6F0900D81A4A /* GradientSliderCell.swift in Sources */,
 				4AC3DDCB1ECA418200E08B8D /* ColorController.swift in Sources */,
 				4A62A81D1EBED596003A02D2 /* PaletteCollectionViewItem.swift in Sources */,

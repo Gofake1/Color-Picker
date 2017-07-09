@@ -43,6 +43,8 @@ class ColorController {
                               saturation: color.saturationComponent,
                               brightness: 1.0,
                               alpha: 1.0)
-        colorPicker.updateSelectedColor()
+        colorPicker.updateColorWheel()
+        colorPicker.updateSlider()
+        colorPicker.updateLabel()
     }
 }

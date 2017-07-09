@@ -17,7 +17,7 @@ class PaletteViewController: NSViewController {
     /// Cached index paths for dragged items in the current drag session
     private var draggedIndexPaths = Set<IndexPath>()
 
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         collectionView.collectionController = collectionController
         collectionView.register(PaletteCollectionViewItem.self,
                                 forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "palette"))
@@ -47,7 +47,8 @@ class PaletteViewController: NSViewController {
 extension PaletteViewController: NSCollectionViewDelegate {
 
     func collectionView(_ collectionView: NSCollectionView,
-                        pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
+                        pasteboardWriterForItemAt indexPath: IndexPath)
+        -> NSPasteboardWriting? {
         let writer = NSPasteboardItem()
         let data = NSKeyedArchiver.archivedData(withRootObject: paletteCollection.palettes[indexPath.item])
         writer.setData(data, forType: NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette"))
@@ -73,13 +74,14 @@ extension PaletteViewController: NSCollectionViewDelegate {
                         proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>,
                         dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionView.DropOperation>)
         -> NSDragOperation {
-            return .move
+        return .move
     }
 
     func collectionView(_ collectionView: NSCollectionView,
                         acceptDrop draggingInfo: NSDraggingInfo,
                         indexPath: IndexPath,
-                        dropOperation: NSCollectionView.DropOperation) -> Bool {
+                        dropOperation: NSCollectionView.DropOperation)
+        -> Bool {
         for fromIndexPath in draggedIndexPaths {
             let temp = paletteCollection.palettes.remove(at: fromIndexPath.item)
             paletteCollection.palettes.insert(temp, at: (indexPath.item <= fromIndexPath.item)

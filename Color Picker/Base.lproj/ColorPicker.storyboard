@@ -60,10 +60,16 @@
                                     <outlet property="delegate" destination="3Pz-yC-UHG" id="C1F-Ht-MgT"/>
                                 </connections>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BvD-L3-jqC" customClass="ColorDragView" customModule="Color_Picker" customModuleProvider="target">
+                                <rect key="frame" x="160" y="8" width="20" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="Pasteboard" id="yQx-Ne-LuX"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="brightnessSlider" destination="kEI-3s-8V1" id="sIm-Vq-9Xz"/>
+                        <outlet property="colorDragView" destination="BvD-L3-jqC" id="zxV-aV-XLO"/>
                         <outlet property="colorLabel" destination="dR5-XT-mBw" id="2YO-as-1NR"/>
                         <outlet property="colorWheelView" destination="RoW-gq-wFb" id="0WL-3s-3Mf"/>
                     </connections>
@@ -73,4 +79,7 @@
             <point key="canvasLocation" x="-92" y="426.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Pasteboard" width="20" height="17"/>
+    </resources>
 </document>

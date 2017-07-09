@@ -11,41 +11,34 @@ import Cocoa
 class ColorPickerViewController: NSViewController {
 
     @IBOutlet weak var brightnessSlider: NSSlider!
-    @IBOutlet weak var colorLabel: NSTextField!
-    @IBOutlet weak var colorWheelView: ColorWheelView!
+    @IBOutlet weak var colorLabel:       NSTextField!
+    @IBOutlet weak var colorWheelView:   ColorWheelView!
+    @IBOutlet weak var colorDragView:    ColorDragView!
 
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         ColorController.shared.colorPicker = self
         colorWheelView.delegate = self
     }
 
-    /// - postcondition: Mutates `colorController.selectedColor`
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        let string = (obj.userInfo?["NSFieldEditor"] as! NSTextView).textStorage!.string
-        let color = NSColor(hexString: string)
-        ColorController.shared.setColor(color)
-        view.window?.makeFirstResponder(view)
-    }
-
-    /// Should only be called by `colorController`
-    func updateSelectedColor() {
-        updateColorWheel()
-        updateLabel()
-        updateSlider()
-    }
-
-    /// - postcondition: Mutates `ColorController.brightness`
+    /// - postcondition: Mutates `ColorController.brightness`, redraws views
     @IBAction func setBrightness(_ sender: NSSlider) {
         ColorController.shared.brightness = CGFloat((sender.maxValue-sender.doubleValue) / sender.maxValue)
         updateColorWheel(redrawCrosshair: false)
         updateLabel()
     }
 
-    private func updateColorWheel(redrawCrosshair: Bool = true) {
+    /// - postcondition: Mutates `colorController.selectedColor`, redraws views
+    @IBAction func setColor(_ sender: NSTextField) {
+        let color = NSColor(hexString: sender.stringValue)
+        ColorController.shared.setColor(color)
+        view.window?.makeFirstResponder(view)
+    }
+
+    func updateColorWheel(redrawCrosshair: Bool = true) {
         colorWheelView.setColor(ColorController.shared.selectedColor, redrawCrosshair)
     }
 
-    private func updateLabel() {
+    func updateLabel() {
         colorLabel.backgroundColor = ColorController.shared.selectedColor
         colorLabel.stringValue = "#"+ColorController.shared.selectedColor.rgbHexString
         if ColorController.shared.selectedColor.scaledBrightness < 0.5 {
@@ -55,7 +48,7 @@ class ColorPickerViewController: NSViewController {
         }
     }
 
-    private func updateSlider() {
+    func updateSlider() {
         guard let sliderCell = brightnessSlider.cell as? GradientSliderCell else { fatalError() }
         sliderCell.colorA = ColorController.shared.masterColor
         brightnessSlider.drawCell(sliderCell)
@@ -80,12 +73,12 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
         // or 7 characters if the first character is '#'
         switch string.characters.count {
         case 6:
-            guard string.containsOnlyHexCharacters() else { return false }
+            guard string.containsOnlyHexCharacters else { return false }
             return true
         case 7:
             guard string.hasPrefix("#") else { return false }
             var trimmed = string; trimmed.remove(at: trimmed.startIndex)
-            guard trimmed.containsOnlyHexCharacters() else { return false }
+            guard trimmed.containsOnlyHexCharacters else { return false }
             return true
         default:
             return false
@@ -94,7 +87,7 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
 
     func control(_ control: NSControl, isValidObject obj: Any?) -> Bool {
         if control == colorLabel {
-            guard let _obj = obj, let string = _obj as? String else { return false }
+            guard let string = obj as? String else { return false }
             return validateControlString(string)
         }
         return false
@@ -102,7 +95,7 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
 }
 
 extension String {
-    func containsOnlyHexCharacters() -> Bool {
+    var containsOnlyHexCharacters: Bool {
         return !characters.contains {
             switch $0 {
             case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "a", "b",

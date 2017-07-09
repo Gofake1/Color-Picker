@@ -53,7 +53,7 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
 
     @IBAction func edit(_ sender: NSMenuItem) {
         isEditing = true
-        paletteColorsView.isEditing = true
+        paletteColorsView.state = .isEditing
     }
 
     @IBAction func delete(_ sender: NSMenuItem) {
@@ -63,7 +63,7 @@ class PaletteCollectionViewItem: NSCollectionViewItem {
 
     @IBAction func finishEditing(_ sender: NSButton) {
         isEditing = false
-        paletteColorsView.isEditing = false
+        paletteColorsView.state = .normal
     }
 }
 
@@ -71,6 +71,12 @@ extension PaletteCollectionViewItem: PaletteColorsViewDelegate {
 
     func selectColor(_ color: NSColor) {
         ColorController.shared.setColor(color)
+    }
+
+    func addColor(_ color: NSColor) {
+        if let palette = representedObject as? Palette {
+            palette.addColor(color)
+        }
     }
 
     func removeColor(_ color: NSColor) {
