@@ -40,7 +40,7 @@ class PaletteColorsView: NSView {
             }
         }
     }
-    private var draggedOutColor: NSColor?
+    fileprivate var draggedOutColor: NSColor?
     private var selectedIndex: Int? {
         didSet {
             if oldValue != selectedIndex {
@@ -51,11 +51,11 @@ class PaletteColorsView: NSView {
     private var sortedColors: [NSColor]!
 
     override func awakeFromNib() {
-        registerForDraggedTypes([.color])
+        register(forDraggedTypes: [NSPasteboardTypeColor])
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let context = NSGraphicsContext.current?.cgContext, let colors = sortedColors else { return }
+        guard let context = NSGraphicsContext.current()?.cgContext, let colors = sortedColors else { return }
         context.setLineWidth(1)
         context.setStrokeColor(CGColor(gray: 0.6, alpha: 0.8))
 
@@ -146,7 +146,7 @@ class PaletteColorsView: NSView {
         state = .isDraggingOut
         draggedOutColor = sortedColors[index]
         let pasteboardItem = NSPasteboardItem()
-        pasteboardItem.setDataProvider(self, forTypes: [.color])
+        pasteboardItem.setDataProvider(self, forTypes: [NSPasteboardTypeColor])
         let draggingImage = NSImage(size: NSSize(width: 18, height: 18))
         draggingImage.lockFocus()
         sortedColors[index].drawSwatch(in: NSRect(x: 0, y: 0, width: 18, height: 18))
@@ -211,10 +211,10 @@ extension PaletteColorsView: NSDraggingSource {
 extension PaletteColorsView: NSPasteboardItemDataProvider {
     func pasteboard(_ pasteboard: NSPasteboard?,
                     item: NSPasteboardItem,
-                    provideDataForType type: NSPasteboard.PasteboardType) {
+                    provideDataForType type: String) {
         guard let pasteboard = pasteboard,
             let color = draggedOutColor,
-            type == .color
+            type == NSPasteboardTypeColor
             else { return }
         color.write(to: pasteboard)
     }

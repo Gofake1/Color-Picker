@@ -15,14 +15,13 @@ class PaletteViewController: NSViewController {
     // Injected by AppDelegate
     @objc dynamic weak var paletteCollection: PaletteCollection!
     /// Cached index paths for dragged items in the current drag session
-    private var draggedIndexPaths = Set<IndexPath>()
+    fileprivate var draggedIndexPaths = Set<IndexPath>()
 
     override func awakeFromNib() {
         collectionView.collectionController = collectionController
         collectionView.register(PaletteCollectionViewItem.self,
-                                forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "palette"))
-        collectionView.registerForDraggedTypes(
-            [NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette")])
+                                forItemWithIdentifier: "palette")
+        collectionView.register(forDraggedTypes: ["net.gofake1.Color-Picker.palette"])
     }
 
     override func deleteBackward(_ sender: Any?) {
@@ -51,7 +50,7 @@ extension PaletteViewController: NSCollectionViewDelegate {
         -> NSPasteboardWriting? {
         let writer = NSPasteboardItem()
         let data = NSKeyedArchiver.archivedData(withRootObject: paletteCollection.palettes[indexPath.item])
-        writer.setData(data, forType: NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette"))
+        writer.setData(data, forType: "net.gofake1.Color-Picker.palette")
         return writer
     }
 
@@ -72,7 +71,7 @@ extension PaletteViewController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView,
                         validateDrop draggingInfo: NSDraggingInfo,
                         proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>,
-                        dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionView.DropOperation>)
+                        dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>)
         -> NSDragOperation {
         return .move
     }
@@ -80,7 +79,7 @@ extension PaletteViewController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView,
                         acceptDrop draggingInfo: NSDraggingInfo,
                         indexPath: IndexPath,
-                        dropOperation: NSCollectionView.DropOperation)
+                        dropOperation: NSCollectionViewDropOperation)
         -> Bool {
         for fromIndexPath in draggedIndexPaths {
             let temp = paletteCollection.palettes.remove(at: fromIndexPath.item)

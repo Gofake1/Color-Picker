@@ -11,7 +11,7 @@ import Cocoa
 extension NSColor {
 
     var rgbHexString: String {
-        guard let rgbColor = usingColorSpaceName(NSColorSpaceName.calibratedRGB) else { return "FFFFFF" }
+        guard let rgbColor = usingColorSpaceName(NSCalibratedRGBColorSpace) else { return "FFFFFF" }
         let r = Int(round(rgbColor.redComponent * 0xFF))
         let g = Int(round(rgbColor.greenComponent * 0xFF))
         let b = Int(round(rgbColor.blueComponent * 0xFF))
@@ -19,12 +19,12 @@ extension NSColor {
     }
 
     var rgbDecString: String {
-        guard let rgbColor = usingColorSpaceName(NSColorSpaceName.calibratedRGB) else { return "1.0 1.0 1.0" }
+        guard let rgbColor = usingColorSpaceName(NSCalibratedRGBColorSpace) else { return "1.0 1.0 1.0" }
         return "\(rgbColor.redComponent) \(rgbColor.greenComponent) \(rgbColor.blueComponent)"
     }
 
     var cmykString: String {
-        guard let cmykColor = usingColorSpaceName(NSColorSpaceName.deviceCMYK) else { return "0.0 0.0 0.0 0.0" }
+        guard let cmykColor = usingColorSpaceName(NSDeviceCMYKColorSpace) else { return "0.0 0.0 0.0 0.0" }
         return "\(cmykColor.cyanComponent) \(cmykColor.magentaComponent) \(cmykColor.yellowComponent) " +
             "\(cmykColor.blackComponent)"
     }

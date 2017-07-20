@@ -12,7 +12,7 @@ import Cocoa
 class ColorPickerView: NSView {
 
     override func awakeFromNib() {
-        registerForDraggedTypes([.color])
+        register(forDraggedTypes: [NSPasteboardTypeColor])
     }
 
     // MARK: - NSDraggingDestination

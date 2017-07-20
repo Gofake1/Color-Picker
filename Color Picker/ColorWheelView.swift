@@ -34,7 +34,7 @@ class ColorWheelView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let context = NSGraphicsContext.current?.cgContext else { return }
+        guard let context = NSGraphicsContext.current()?.cgContext else { return }
 
         context.addEllipse(in: dirtyRect)
         context.clip()

@@ -18,22 +18,22 @@ class MainMenuController: NSObject {
     weak var preferences: NSWindowController?
 
     override func awakeFromNib() {
-        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: self)
+        NSPasteboard.general().declareTypes([NSPasteboardTypeString], owner: self)
     }
 
     @IBAction func copyCurrentColorAsRGBHexadecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general.setString(ColorController.shared.selectedColor.rgbHexString,
-                                         forType: NSPasteboard.PasteboardType.string)
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbHexString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsRGBDecimal(_ sender: NSMenuItem) {
-        NSPasteboard.general.setString(ColorController.shared.selectedColor.rgbDecString,
-                                         forType: NSPasteboard.PasteboardType.string)
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.rgbDecString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func copyCurrentColorAsCYMK(_ sender: NSMenuItem) {
-        NSPasteboard.general.setString(ColorController.shared.selectedColor.cmykString,
-                                         forType: NSPasteboard.PasteboardType.string)
+        NSPasteboard.general().setString(ColorController.shared.selectedColor.cmykString,
+                                         forType: NSPasteboardTypeString)
     }
 
     @IBAction func showColorPicker(_ sender: NSMenuItem) {

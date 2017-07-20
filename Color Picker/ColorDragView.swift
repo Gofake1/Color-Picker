@@ -13,7 +13,7 @@ class ColorDragView: NSImageView {
 
     override func mouseDown(with event: NSEvent) {
         let pasteboardItem = NSPasteboardItem()
-        pasteboardItem.setDataProvider(self, forTypes: [.color])
+        pasteboardItem.setDataProvider(self, forTypes: [NSPasteboardTypeColor])
         let draggingImage = NSImage(size: bounds.size)
         draggingImage.lockFocus()
         ColorController.shared.selectedColor.drawSwatch(in: bounds)
@@ -35,8 +35,8 @@ extension ColorDragView: NSDraggingSource {
 extension ColorDragView: NSPasteboardItemDataProvider {
     func pasteboard(_ pasteboard: NSPasteboard?, 
                     item: NSPasteboardItem,
-                    provideDataForType type: NSPasteboard.PasteboardType) {
-        guard let pasteboard = pasteboard, type == .color else { return }
+                    provideDataForType type: String) {
+        guard let pasteboard = pasteboard, type == NSPasteboardTypeColor else { return }
         ColorController.shared.selectedColor.write(to: pasteboard)
     }
 }
