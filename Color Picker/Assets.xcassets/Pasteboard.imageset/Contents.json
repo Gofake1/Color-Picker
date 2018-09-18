@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "Pasteboard.png",
+      "filename" : "Pasteboard-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "Pasteboard@2x.png",
+      "filename" : "Pasteboard@2x-1.png",
       "scale" : "2x"
     }
   ],

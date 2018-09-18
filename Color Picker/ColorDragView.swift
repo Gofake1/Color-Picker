@@ -10,7 +10,6 @@ import Cocoa
 
 /// Allows colors to be dragged out
 class ColorDragView: NSImageView {
-
     override func mouseDown(with event: NSEvent) {
         let pasteboardItem = NSPasteboardItem()
         pasteboardItem.setDataProvider(self, forTypes: [.color])
@@ -26,16 +25,16 @@ class ColorDragView: NSImageView {
 
 extension ColorDragView: NSDraggingSource {
     func draggingSession(_ session: NSDraggingSession,
-                         sourceOperationMaskFor context: NSDraggingContext)
-        -> NSDragOperation {
+                         sourceOperationMaskFor context: NSDraggingContext) -> NSDragOperation
+    {
         return .generic
     }
 }
 
 extension ColorDragView: NSPasteboardItemDataProvider {
-    func pasteboard(_ pasteboard: NSPasteboard?, 
-                    item: NSPasteboardItem,
-                    provideDataForType type: NSPasteboard.PasteboardType) {
+    func pasteboard(_ pasteboard: NSPasteboard?, item: NSPasteboardItem,
+                    provideDataForType type: NSPasteboard.PasteboardType)
+    {
         guard let pasteboard = pasteboard, type == .color else { return }
         ColorController.shared.selectedColor.write(to: pasteboard)
     }

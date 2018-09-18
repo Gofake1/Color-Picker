@@ -71,7 +71,7 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
     private func validateControlString(_ string: String) -> Bool {
         // String must be 6 characters and only contain numbers and letters 'a' through 'f',
         // or 7 characters if the first character is '#'
-        switch string.characters.count {
+        switch string.count {
         case 6:
             guard string.containsOnlyHexCharacters else { return false }
             return true
@@ -96,7 +96,7 @@ extension ColorPickerViewController: NSControlTextEditingDelegate {
 
 extension String {
     var containsOnlyHexCharacters: Bool {
-        return !characters.contains {
+        return !contains {
             switch $0 {
             case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "a", "b",
                  "c", "d", "e", "f":

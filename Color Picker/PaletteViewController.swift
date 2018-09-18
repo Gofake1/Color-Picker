@@ -8,12 +8,14 @@
 
 import Cocoa
 
+private let pasteboardTypePalette = NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette")
+
 class PaletteViewController: NSViewController {
 
     @IBOutlet weak var collectionController: NSArrayController!
     @IBOutlet weak var collectionView: MyCollectionView!
     // Injected by AppDelegate
-    @objc dynamic weak var paletteCollection: PaletteCollection!
+    @objc dynamic var paletteCollection: PaletteCollection!
     /// Cached index paths for dragged items in the current drag session
     private var draggedIndexPaths = Set<IndexPath>()
 
@@ -21,12 +23,11 @@ class PaletteViewController: NSViewController {
         collectionView.collectionController = collectionController
         collectionView.register(PaletteCollectionViewItem.self,
                                 forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "palette"))
-        collectionView.registerForDraggedTypes(
-            [NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette")])
+        collectionView.registerForDraggedTypes([pasteboardTypePalette])
     }
 
     override func deleteBackward(_ sender: Any?) {
-        // TODO: ask for confirmation when deleting empty or multiple palettes
+        // TODO: ask for confirmation when deleting non-empty or multiple palettes
         collectionController.remove(atArrangedObjectIndexes: collectionView.selectionIndexes)
     }
 
@@ -51,7 +52,7 @@ extension PaletteViewController: NSCollectionViewDelegate {
         -> NSPasteboardWriting? {
         let writer = NSPasteboardItem()
         let data = NSKeyedArchiver.archivedData(withRootObject: paletteCollection.palettes[indexPath.item])
-        writer.setData(data, forType: NSPasteboard.PasteboardType(rawValue: "net.gofake1.Color-Picker.palette"))
+        writer.setData(data, forType: pasteboardTypePalette)
         return writer
     }
 

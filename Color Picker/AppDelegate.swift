@@ -44,7 +44,7 @@ extension AppDelegate: NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let palettesData = UserDefaults.standard.data(forKey: "palettes") {
-            paletteCollection = NSKeyedUnarchiver.unarchiveObject(with: palettesData) as! PaletteCollection
+            paletteCollection = NSKeyedUnarchiver.unarchiveObject(with: palettesData) as? PaletteCollection
         } else {
             paletteCollection = PaletteCollection()
         }
